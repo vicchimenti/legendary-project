@@ -5,6 +5,10 @@ import VideoSection from './components/VideoSection.vue'
 import HeroSection from './components/HeroSection.vue'
 import FeaturesSection from './components/FeaturesSection.vue'
 import CtaSection from './components/CtaSection.vue'
+import CarouselSection from './components/CarouselSection.vue'
+
+import LegendaryResultsSection from './components/LegendaryResultsSection.vue'
+
 import SiteFooter from './components/SiteFooter.vue'
 </script>
 
@@ -15,6 +19,8 @@ import SiteFooter from './components/SiteFooter.vue'
     <RallyCrySection />
     <VideoSection />
     <CtaSection />
+    <CarouselSection /> 
+    <LegendaryResultsSection />   
     <FeaturesSection />
   </main>
   <SiteFooter />

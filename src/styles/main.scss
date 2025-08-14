@@ -1,7 +1,11 @@
 // src/styles/main.scss
 
 // Variables
-@import "variables.scss";
+$bg: #AC0002;        
+$card: #0b1224;      // slightly different for depth
+$text: #e2e8f0;      // slate-200
+$muted: #94a3b8;     // slate-400
+$accent: #38bdf8;    // sky-400
 
 :root {
   --page-bg: #AC0002; // original red
