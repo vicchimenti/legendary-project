@@ -8,6 +8,7 @@ import CtaSection from './components/CtaSection.vue'
 import CarouselSection from './components/CarouselSection.vue'
 
 import LegendaryResultsSection from './components/LegendaryResultsSection.vue'
+import QuotesStackSection from './components/QuotesStackSection.vue'
 
 import SiteFooter from './components/SiteFooter.vue'
 </script>
@@ -21,6 +22,7 @@ import SiteFooter from './components/SiteFooter.vue'
     <CtaSection />
     <CarouselSection /> 
     <LegendaryResultsSection />   
+    <QuotesStackSection />   
     <FeaturesSection />
   </main>
   <SiteFooter />
