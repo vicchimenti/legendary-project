@@ -17,11 +17,7 @@ onMounted(() => {
 <template>
   <header class="header">
     <div class="container" ref="header" style="display:flex;justify-content:space-between;align-items:center;">
-      <div class="brand">Vue+GSAP</div>
-      <nav class="nav">
-        <a href="#features">Features</a>
-        <a href="#get-started">Get Started</a>
-      </nav>
+
     </div>
   </header>
 </template>

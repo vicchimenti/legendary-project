@@ -69,7 +69,13 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .video-section {
-  padding: 6rem 0 7rem;
+  padding: 0rem 0 0rem;
+  background:
+    linear-gradient(to bottom, var(--page-bg) 0 50%, transparent 50% 100%),
+    url('../assets/images/TEXTURE_BG_.jpg');
+  background-repeat: repeat;
+  background-position: right;
+  background-size: 100% auto;
 }
 
 .video-wrap {
@@ -79,13 +85,14 @@ onBeforeUnmount(() => {
 
 .video-box {
   position: relative;
-  width: min(100%, 800px);
-  aspect-ratio: 16 / 9;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  width: min(100%, 1160px);
+  aspect-ratio: 232/97;
 
-  background: #fff; // fallback while video loads
+  overflow: hidden;
+
+
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%);
+  background-blend-mode: multiply;
 }
 
 .video-el {
@@ -106,12 +113,14 @@ onBeforeUnmount(() => {
 }
 
 .video-tagline {
-  font-weight: 900;
-  letter-spacing: .03em;
-  text-transform: none;
-  color: #fff;
-  text-shadow: 0 6px 24px rgba(0,0,0,0.35);
-  font-size: clamp(1.25rem, 3.5vw, 2.25rem);
+  color: var(--White, #FFF);
+  text-align: center;
+  font-family: Oswald;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%; /* 55px */
+  text-transform: uppercase;
 }
 
 .sr-only {

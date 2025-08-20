@@ -76,9 +76,6 @@ onBeforeUnmount(() => {
     <div class="rally-grid">
       <!-- Left images (decorative) -->
       <div class="rally-images left" aria-hidden="true">
-        <img class="rally-img" src="https://images.unsplash.com/photo-1512295767273-ac109ac3acfa?q=80&w=1200&auto=format&fit=crop" alt="" loading="lazy">
-        <img class="rally-img" src="https://images.unsplash.com/photo-1548081072-33f5b06ea89b?q=80&w=1200&auto=format&fit=crop" alt="" loading="lazy">
-        <img class="rally-img" src="https://images.unsplash.com/photo-1520975693412-35a3b4b7a1b5?q=80&w=1200&auto=format&fit=crop" alt="" loading="lazy">
       </div>
 
       <!-- Center pinned text -->
@@ -98,10 +95,11 @@ onBeforeUnmount(() => {
 
       <!-- Right images (decorative) -->
       <div class="rally-images right" aria-hidden="true">
-        <img class="rally-img" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop" alt="" loading="lazy">
-        <img class="rally-img" src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=1200&auto=format&fit=crop" alt="" loading="lazy">
-        <img class="rally-img" src="https://images.unsplash.com/photo-1520975922284-0f4f9f7b8b3b?q=80&w=1200&auto=format&fit=crop" alt="" loading="lazy">
       </div>
+    </div>
+    <div class="rally-logo" aria-hidden="true">
+      <img src="../assets/images/Desktop_Logo.svg" alt="Seattle University Logo" />
+
     </div>
   </section>
 </template>
@@ -129,13 +127,16 @@ onBeforeUnmount(() => {
   }
 
   .rally-cry-block {
-    // Start barely visible; GSAP will scrub opacity to 1
-    color: #fff; // final target color already white; opacity does the reveal
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    line-height: 1.2;
-    font-size: clamp(1.125rem, 2.2vw, 1.5rem);
+    color: #FFF;
 
+    text-align: center;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Oswald;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px; /* 133.333% */
+    text-transform: uppercase;
     p {
       margin: 0 0 1rem;
       &:last-child { margin-bottom: 0; }
@@ -150,31 +151,43 @@ onBeforeUnmount(() => {
     grid-template-rows: repeat(6, 60px);
     grid-auto-flow: row;
 
-    .rally-img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 1rem;
-      border: 1px solid rgba(#fff, 0.12);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      transform: translateZ(0);
+    // .rally-img {
+    //   width: 100%;
+    //   height: 180px;
+    //   object-fit: cover;
+    //   border-radius: 1rem;
+    //   border: 1px solid rgba(#fff, 0.12);
+    //   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    //   transform: translateZ(0);
     
-    }
+    // }
 
-    &.left {
-      .rally-img:nth-child(1) { grid-row: 1 / span 3; }
-      .rally-img:nth-child(2) { grid-row: 3 / span 3; }
-      .rally-img:nth-child(3) { grid-row: 5 / span 3; }
-    }
+    // &.left {
+    //   .rally-img:nth-child(1) { grid-row: 1 / span 3; }
+    //   .rally-img:nth-child(2) { grid-row: 3 / span 3; }
+    //   .rally-img:nth-child(3) { grid-row: 5 / span 3; }
+    // }
 
-    &.right {
-      .rally-img:nth-child(1) { grid-row: 2 / span 3; }
-      .rally-img:nth-child(2) { grid-row: 4 / span 3; }
-      .rally-img:nth-child(3) { grid-row: 1 / span 3; }
-    }
+    // &.right {
+    //   .rally-img:nth-child(1) { grid-row: 2 / span 3; }
+    //   .rally-img:nth-child(2) { grid-row: 4 / span 3; }
+    //   .rally-img:nth-child(3) { grid-row: 1 / span 3; }
+    // }
+
+
 
     @media (max-width: 960px) {
       display: none; // hide side images on small screens; keep focus on the text
+    }
+  }
+
+  .rally-logo{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:8em 0 0em;
+    img{
+      width: 175px;
     }
   }
 

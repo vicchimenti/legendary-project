@@ -4,42 +4,37 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
+
+import UndergradImg from '../assets/images/Seattle-U-UL-Undergrad-1-R3-1.jpg'
+import GradImg      from '../assets/images/Seattle-U-UL-Grad-1-R3-2.jpg'
+
 const section = ref(null)
 let ctx
 
-// Example data (swap with your content/CMS later)
 const ctas = [
   {
-    title: 'Hands-on learning that moves you forward',
-    desc: `Tackle real projects with mentors and industry partners. 
-           Build a portfolio that speaks for itself.`,
-    img:  'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop',
-    alt:  'Students collaborating on a project',
+    subtitle: 'UNDERGRADS',
+    title: 'Small Classes, Big Wins',
+    desc: `Discover rigorous academic excellence, thousands of internship and career opportunities, and life-changing experiences in an inspiring community.`,
+    img:  UndergradImg,
+    alt:  'person standing in front of the seattle skyline',
     buttons: [
-      { label: 'Explore programs', href: '#', primary: true },
-      { label: 'Talk to an advisor', href: '#' }
+      { label: 'Get Started', href: '#', primary: true },
+      // { label: 'Talk to an advisor', href: '#' }
     ]
   },
   {
-    title: 'A community that champions your purpose',
-    desc:  `Find your people, lead with conviction, and make a measurable impact—on campus and beyond.`,
-    img:   'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1600&auto=format&fit=crop',
-    alt:   'Campus community gathering outdoors',
+    subtitle: 'GRAD STUDENTS',
+    title: 'TRANSFORM YOURSELF AND THE WORLD',
+    desc:  `Advance your career in one of 50 graduate degree programs, network with industry leaders, and build your future in a city propelled by innovators, artists, and adventurers. `,
+    img:  GradImg,
+    alt:  'person standing in front of the seattle skyline',
     buttons: [
-      { label: 'Campus life', href: '#', primary: true },
-      { label: 'Clubs & orgs', href: '#' }
+      { label: 'Get Started', href: '#', primary: true },
+
     ]
   },
-  {
-    title: 'Career outcomes that open doors',
-    desc:  `Internships, networks, and advising that translate your passion into a path.`,
-    img:   'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1600&auto=format&fit=crop',
-    alt:   'Graduate at a city overlook',
-    buttons: [
-      { label: 'Career services', href: '#', primary: true },
-      { label: 'Alumni stories', href: '#' }
-    ]
-  }
+
 ]
 
 onMounted(async () => {
@@ -108,6 +103,7 @@ onBeforeUnmount(() => {
         </div>
 
         <div class="cta-copy">
+          <div class="cta-subtitle">{{ item.subtitle }}</div>
           <h3 class="cta-title">{{ item.title }}</h3>
           <p class="cta-desc">{{ item.desc }}</p>
 
@@ -128,19 +124,20 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 
-// use html variables for colors
-$bg: #AC0002;        
-$card: #0b1224;      // slightly different for depth
-$text: #e2e8f0;      // slate-200
-$muted: #94a3b8;     // slate-400
-$accent: #38bdf8;    // sky-400
 
-/* Very light grey background for the whole section */
+
 .cta-alt {
-  background: #f5f7fa; // adjust if you have a $sectionLight var
+  background: #f5f7fa;
   padding: 6rem 0;
 
   .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+
+  background:  url('../assets/images/TEXTURE_BG_.jpg');
+  background-repeat: repeat;
+  background-position: right;
+  background-size: 100% auto;
+
 }
 
 /* One row per CTA */
@@ -166,14 +163,19 @@ $accent: #38bdf8;    // sky-400
 .cta-media {
   order: 1;
   & img {
-    width: 100%;
-    height: clamp(220px, 40vw, 420px);
-    object-fit: cover;
-    border-radius: 16px;
-    border: 1px solid rgba($accent, 0.12);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.18);
-    background: $card;
+
+     --bleed: clamp(0px, 8vw, 120px); 
+
     display: block;
+    width: calc(100% + var(--bleed) * 2);
+    margin-left: calc(var(--bleed) * -1);
+    margin-right: calc(var(--bleed) * -1);
+    height: auto;
+    object-fit: cover;
+
+    @media (max-width: 960px) {
+      :root { --bleed: 0px; }
+    }
   }
 
   /* When reversed, move media to the right on desktop */
@@ -184,21 +186,48 @@ $accent: #38bdf8;    // sky-400
 /* Copy column */
 .cta-copy {
   order: 2;
+  z-index: 1;
   .reverse & { order: 1; }
 
+  .cta-subtitle {
+    color: var(--Black, #000);
+    font-feature-settings: 'liga' off, 'clig' off;
+
+    /* Body 18 */
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 170%; /* 30.6px */
+    margin-bottom:8px;
+    text-transform: uppercase;
+  }
   .cta-title {
-    font-weight: 900;
-    letter-spacing: .02em;
-    line-height: 1.15;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    margin: 0 0 .5rem;
-    color: $bg ; // fallback if vars not present
+    color: var(--Digital-SU-Red, #A00);
+    font-feature-settings: 'liga' off, 'clig' off;
+
+    /* H2 - Oswald */
+    font-family: Oswald;
+    font-size: 62px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 70px; /* 112.903% */
+    text-transform: uppercase;
+    margin-bottom:8px;
+    margin-bottom: 8px;
+    margin-top: 0px;
   }
 
   .cta-desc {
-    color: $muted;
-    margin: 0 0 1.25rem;
-    max-width: 60ch;
+    color: var(--Black, #000);
+    font-feature-settings: 'liga' off, 'clig' off;
+
+    /* Body 16 */
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%; /* 25.6px */
   }
 
   .cta-actions {
@@ -218,25 +247,28 @@ $accent: #38bdf8;    // sky-400
   border: 1px solid transparent;
   transition: transform .12s ease, box-shadow .12s ease;
 
+  color: var(--White, #FFF);
+  font-feature-settings: 'liga' off, 'clig' off;
+  /* CTA */
+  font-family: Montserrat;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 133.333% */
+
+
+
   &:active { transform: translateY(1px); }
 }
 
 .btn--primary {
-  background: $accent;
-  color: #061018;
-  border-color: rgba($accent, .2);
-  box-shadow: 0 8px 20px rgba(0,0,0,.15);
-
+  border-radius: 3px;
+  background: var(--Digital-SU-Red, #A00);
+  color:#fff;
   &:hover { box-shadow: 0 10px 26px rgba(0,0,0,.2); }
 }
 
-.btn--ghost {
-  background: transparent;
-  color: #0f172a;
-  border-color: rgba(0,0,0,.12);
 
-  &:hover { background: rgba(0,0,0,.04); }
-}
 
 /* Visually hidden */
 .sr-only {
