@@ -96,8 +96,8 @@ onBeforeUnmount(() => {
               {{ q.quote }}
             </blockquote>
             <figcaption class="q-meta">
-              <span class="q-who">{{ q.who }}</span>
-              <span class="q-what"> · {{ q.what }}</span>
+              <div class="q-who">{{ q.who }}</div>
+              <div class="q-what">{{ q.what }}</div>
             </figcaption>
           </figure>
         </li>
@@ -108,7 +108,7 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .quotes-stack {
-  background: #fff;
+  background: var(--Digital-SU-Red);
   padding: 6rem 0;
 
   .container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
@@ -118,6 +118,7 @@ onBeforeUnmount(() => {
 .q-list {
   display: grid;
   gap: 3.5rem;
+  list-style:none;
 
   @media (min-width: 960px) { gap: 4.5rem; }
 }
@@ -136,12 +137,15 @@ onBeforeUnmount(() => {
 
 .q-text {
   position: relative;
-  font-weight: 900;
-  line-height: 1.15;
-  letter-spacing: .01em;
-  color: #0f172a;
-  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
-  margin: 0 0 .5rem;
+  color: var(--White, #FFF);
+  font-feature-settings: 'liga' off, 'clig' off;
+
+  /* H5 */
+  font-family: Montserrat;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 34px; /* 121.429% */
 
   /* Big framing quotation marks only when active */
   &::before,
@@ -177,10 +181,13 @@ onBeforeUnmount(() => {
 }
 
 .q-meta {
-  color: #475569; /* slate-600 */
-  font-size: 0.95rem;
-  .q-who { font-weight: 800; color: #0f172a; }
-  .q-what { opacity: .8; }
+  color: var(--Yellow, #FDB913);
+  font-feature-settings: 'liga' off, 'clig' off;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px; /* 155.556% */
 }
 
 /* Accessibility helper */

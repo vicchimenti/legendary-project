@@ -4,6 +4,10 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
+
+import ResultsImage from '../assets/images/RESULTS_IMAGE.jpg'
+import ResultsImageMobile from '../assets/images/RESULTS_IMAGE_MOBILE.jpg'
+
 const section = ref(null)
 const imgEl = ref(null)
 const card = ref(null)
@@ -12,9 +16,9 @@ let onWinLoad
 
 // FPO stats — swap with props/CMS later
 const stats = [
-  { value: '98%', title: 'Career Outcomes', desc: 'Graduates employed or in grad school within 6 months.' },
-  { value: '200+', title: 'Industry Partners', desc: 'Active collaborations driving real-world projects.' },
-  { value: '#1', title: 'Service & Impact', desc: 'Recognized regionally for community engagement.' }
+  { value: '#1', title: 'Economically Diverse University in WA', desc: `The New York Times College-Access Index noted that we're the most economically diverse selective university in Washington.` },
+  { value: '11:1', title: 'Student-to-Faculty Ratio', desc: 'Small classes led by talented faculty to foster active learning, an SU hallmark.' },
+  { value: '96%', title: 'Success Rate', desc: 'Most Redhawks are employed or in grad school within 6 months of graduation.' }
 ]
 
 onMounted(async () => {
@@ -72,30 +76,43 @@ onBeforeUnmount(() => {
     <div class="legendary-hero">
       <img
         ref="imgEl"
-        class="legendary-img"
-        src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=2400&auto=format&fit=crop"
+        class="legendary-img d-md-block d-none"
+        :src="ResultsImage"
         alt=""
         aria-hidden="true"
       />
+
+      <img
+        ref="imgEl"
+        class="legendary-img d-block d-md-none"
+        :src="ResultsImageMobile"
+        alt=""
+        aria-hidden="true"
+      />
+
       <div class="legendary-overlay"></div>
 
       <!-- Left overlay text -->
-      <div class="legendary-copy container">
-        <h2 id="legendary-heading" class="legendary-kicker">Legendary Results</h2>
-        <p class="legendary-title">PUT YOUR STORY IN MOTION.</p>
+      <div class=" container">
+        <div class="section-heading">
+          <span class="section-subtitle">LEGENDARY RESULTS</span>
+          <h2 id="legendary-heading" class="section-title">PUT YOUR STORY IN MOTION</h2>
+        </div>
       </div>
     </div>
 
     <!-- Red cutout stats card that pulls up into the image -->
     <div class="container">
       <aside class="legendary-stats" ref="card">
-        <ul class="stats-grid" role="list">
-          <li v-for="(s, i) in stats" :key="i" class="stat">
-            <div class="stat-value">{{ s.value }}</div>
-            <div class="stat-title">{{ s.title }}</div>
-            <div class="stat-desc">{{ s.desc }}</div>
-          </li>
-        </ul>
+        <div class="inner">
+          <ul class="stats-grid" role="list">
+            <li v-for="(s, i) in stats" :key="i" class="stat">
+              <div class="stat-value">{{ s.value }}</div>
+              <div class="stat-title">{{ s.title }}</div>
+              <div class="stat-desc">{{ s.desc }}</div>
+            </li>
+          </ul>
+        </div>
       </aside>
     </div>
   </section>
@@ -103,9 +120,12 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .legendary {
-  background: #AC0002; // page section background
+  background: var(--Digital-SU-Red); // page section background
+  .container{
+    position: relative;
+    height: 100%;
 
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  }
 }
 
 /* Full-width parallax image area */
@@ -133,49 +153,68 @@ onBeforeUnmount(() => {
 }
 
 /* Left overlay copy */
-.legendary-copy {
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.section-heading {
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  transform: translateY(-50%);
+  color: #fff;
+  z-index: 1;
 
-  .legendary-kicker {
-    color: #fff;
-    opacity: .9;
-    font-weight: 800;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    margin: 0 0 .25rem;
-    font-size: clamp(.9rem, 1.6vw, 1rem);
+  .section-subtitle {
+    color: var(--White, #FFF);
+    font-feature-settings: 'liga' off, 'clig' off;
+
+    /* Body 18 */
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 170%; /* 30.6px */
   }
 
-  .legendary-title {
-    color: #fff;
-    margin: 0;
-    font-weight: 900;
-    line-height: 1.05;
-    letter-spacing: .02em;
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
+  .section-title {
+    color: var(--White, #FFF);
+    font-feature-settings: 'liga' off, 'clig' off;
+
+    /* H2 - Oswald */
+    font-family: Oswald;
+    font-size: 62px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 70px; /* 112.903% */
+    text-transform: uppercase;
+    max-width:465px;
   }
 }
 
-/* Red cutout stats card */
+
 .legendary-stats {
   position: relative;
-  background: #AC0002; // red
+  background: var(--Digital-SU-Red); 
   color: #fff;
 
 
-  /* Pull up into the bottom-right of the image by ~170px */
-  margin-top: -100px;
-  margin-left: auto;       /* align right */
-  width: min(100%, 680px); /* control max width */
-  padding: 1.25rem 1.25rem 1.4rem;
+  margin-top: -150px;
+  margin-left: 280px;
+  width: auto;
+  .inner{
+    padding: 40px 0px 0px 70px;
+  }
 
   @media (max-width: 960px) {
     margin-top: -140px;
     width: 92%;
+  }
+
+  &:before{
+    content:"";
+    position: absolute; 
+    width:50vw;
+    left:50%;
+    height: 100%;
+    background-color: var(--Digital-SU-Red);
+    z-index: -1;
   }
 }
 
@@ -183,6 +222,9 @@ onBeforeUnmount(() => {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
 
   @media (max-width: 760px) {
     grid-template-columns: 1fr;
@@ -191,19 +233,33 @@ onBeforeUnmount(() => {
 
 .stat {
   .stat-value {
-    font-weight: 900;
-    font-size: clamp(1.75rem, 4.5vw, 2.5rem);
-    line-height: 1;
-    margin-bottom: .35rem;
+    color: var(--White, #FFF);
+    font-family: "Roboto Slab";
+    font-size: 112px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 150%; /* 168px */
   }
   .stat-title {
-    font-weight: 800;
-    letter-spacing: .02em;
-    margin-bottom: .25rem;
+    color: var(--White, #FFF);
+
+    /* Mobile/H4/Regular */
+    font-family: Montserrat;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%; /* 29.4px */
   }
   .stat-desc {
-    opacity: .95;
-    line-height: 1.45;
+    color: var(--White, #FFF);
+    font-feature-settings: 'liga' off, 'clig' off;
+
+    /* Body 16 */
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%; /* 25.6px */
   }
 }
 </style>

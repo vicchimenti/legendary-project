@@ -231,7 +231,7 @@ onBeforeUnmount(() => {
   }
 
   .cta-actions {
-    display: flex; flex-wrap: wrap; gap: .75rem;
+    display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 20px;
   }
 }
 

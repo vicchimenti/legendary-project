@@ -40,39 +40,25 @@ const onKey = (e) => {
 const items = ref([
   {
     img: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=1600&auto=format&fit=crop',
-    alt: 'Student presenting a project',
-    title: 'Lead with purpose',
-    desc: 'Take on real challenges. Build momentum with mentors and community.',
+    alt: 'SU Baseball Start Headed to All-Star Game',
+    title: 'SU Baseball Start Headed to All-Star Game',
+    desc: 'Albers graduate and Cy Young winner Tarik Skubal, ’18 selected to the MLB Midsummer Classic.',
     href: '#'
   },
   {
     img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop',
-    alt: 'Campus walkway at dusk',
-    title: 'Find your people',
-    desc: 'Join a network that elevates your goals and keeps you accountable.',
+    alt: 'A Rising Star',
+    title: 'A Rising Star',
+    desc: 'Alum Shasti Conrad, ’07, named new Vice Chair of the Democratic National Committee.',
     href: '#'
   },
   {
     img: 'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600&auto=format&fit=crop',
-    alt: 'City skyline near campus',
-    title: 'Be in the mix',
-    desc: 'Internships, industry partners, and projects that open doors.',
+    alt: 'Bridging Education and Industry Innovation',
+    title: 'Bridging Education and Industry Innovation',
+    desc: 'Projects Day showcases real-world projects from science and engineering students.',
     href: '#'
   },
-  {
-    img: 'https://images.unsplash.com/photo-1460518451285-97b6aa326961?q=80&w=1600&auto=format&fit=crop',
-    alt: 'Hands collaborating over a desk',
-    title: 'Create outcomes',
-    desc: 'Turn ambition into a plan—and a plan into results.',
-    href: '#'
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600&auto=format&fit=crop',
-    alt: 'Library atrium',
-    title: 'Own your craft',
-    desc: 'Sharpen skills with guidance that meets you where you are.',
-    href: '#'
-  }
 ])
 
 onMounted(async () => {
@@ -100,8 +86,13 @@ onBeforeUnmount(() => {
 
 <template>
   <section class="carousel-section" ref="section" aria-labelledby="carousel-heading">
+
     <div class="container">
-      <h2 id="carousel-heading" class="section-title">Explore more</h2>
+      <div class="section-heading">
+        <div class="section-subtitle">LEGENDARY LEADERS</div>
+        <h2 id="carousel-heading" class="section-title">Legends are made at Seattle University</h2>
+      </div>
+
 
       <div class="controls">
         <button class="nav-btn" :disabled="prevDisabled" @click="scrollBySlides(-1)" aria-label="Previous">
@@ -129,7 +120,9 @@ onBeforeUnmount(() => {
           <div class="slide-card">
             <h3 class="slide-title">{{ item.title }}</h3>
             <p class="slide-desc">{{ item.desc }}</p>
-            <a class="slide-link" :href="item.href">Learn more →</a>
+            <div class="slide-link-holder">
+              <a class="slide-link" :href="item.href">Learn more →</a>
+            </div>
           </div>
         </article>
       </div>
@@ -141,17 +134,43 @@ onBeforeUnmount(() => {
 /* Section with white background */
 .carousel-section {
   background: #ffffff;
-  padding: 6rem 0;
+  padding: 100px 0;
 
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
-  .section-title {
-    margin: 0 0 1rem;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 900;
-    letter-spacing: .02em;
-    line-height: 1.1;
-    color: #0f172a;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  max-width:700px;
+  margin: 0 auto;
+
+  .section-subtitle {
+    color: var(--Black, #000);
+    text-align: center;
+    font-feature-settings: 'liga' off, 'clig' off;
+
+    /* Body 18 */
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 170%; /* 30.6px */
   }
+  h2{
+    color: var(--Black, #000);
+    text-align: center;
+    font-feature-settings: 'liga' off, 'clig' off;
+
+    /* H2 - Oswald */
+    font-family: Oswald;
+    font-size: 62px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 70px; /* 112.903% */
+    text-transform: uppercase;
+  }
+
 }
 
 /* Controls */
@@ -191,7 +210,7 @@ onBeforeUnmount(() => {
 .slide {
   flex: 0 0 100%;
   scroll-snap-align: start;
-  border-radius: 16px;
+
   overflow: hidden; /* clip child corners */
 
   @media (min-width: 640px) { flex-basis: 50%; }
@@ -208,38 +227,61 @@ onBeforeUnmount(() => {
 
 /* Red box below image */
 .slide-card {
-  background: #c81e1e; /* rich red */
+  background: var(--Digital-SU-Red); /* rich red */
   color: #fff;
-  padding: 1rem 1rem 1.1rem;
+  padding: 40px 20px;
   min-height: 150px;
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 16px;
+  height: 100%;
+
+  .slide-title {
+    color: var(--White, #FFF);
+    text-align: center;
+    font-feature-settings: 'liga' off, 'clig' off;
+
+    /* H5 */
+    font-family: Montserrat;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 34px; /* 121.429% */
+    margin-bottom:0px;
+  }
+
+  .slide-desc {
+    color: var(--White, #FFF);
+    text-align: center;
+    font-feature-settings: 'liga' off, 'clig' off;
+
+    /* Body 16 */
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%; /* 25.6px */
+    margin-bottom:0px;
+  }
+  .slide-link-holder{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .slide-link {
+    display:inline-block;
+    color: var(--White, #FFF);
+    font-family: Montserrat;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 125%; /* 21.25px */
+    border-bottom:1px solid #fff;
+    text-decoration: none;
+    &:hover { border-color: #fff; opacity: 0.95; }
+  }
+
 }
 
-.slide-title {
-  margin: 0;
-  font-size: 1.05rem;
-  font-weight: 800;
-  letter-spacing: .01em;
-  line-height: 1.2;
-}
 
-.slide-desc {
-  margin: 0;
-  opacity: .95;
-  line-height: 1.45;
-}
-
-.slide-link {
-  margin-top: auto;
-  align-self: flex-start;
-  font-weight: 700;
-  color: #fff;
-  text-decoration: none;
-  border-bottom: 2px solid rgba(255,255,255,.6);
-  padding-bottom: 2px;
-  transition: border-color .15s ease, opacity .15s ease;
-  &:hover { border-color: #fff; opacity: 0.95; }
-}
 </style>

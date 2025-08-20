@@ -5,6 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+import VideoIcon from '../assets/images/circle-play-solid-full.svg'
+
 const section = ref(null)
 let ctx
 let onWinLoad
@@ -39,27 +41,42 @@ onBeforeUnmount(() => {
 
 
 <template>
+
+
   <section class="video-section section" ref="section" aria-labelledby="video-heading">
-    <div class="container">
-      <h2 id="video-heading" class="sr-only">Feature Video</h2>
 
-      <div class="video-wrap">
-        <div class="video-box">
-          <!-- Background video inside the box -->
-          <!-- Replace src/poster with your asset(s) -->
-          <video
-            class="video-el"
-            src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
-            poster="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.jpg"
-            playsinline
-            autoplay
-            muted
-            loop
-          ></video>
+    <div class="video-tagline-mobile d-block d-md-none">your story is just getting started</div>
+    <div class="video-section-inner">
 
-          <!-- Overlay text -->
-          <div class="video-overlay">
-            <span class="video-tagline">your story is just getting started</span>
+
+
+      <div class="container">
+        <h2 id="video-heading" class="sr-only">Feature Video</h2>
+
+        
+        <div class="video-wrap">
+          <div class="video-box">
+            <!-- Background video inside the box -->
+            <!-- Replace src/poster with your asset(s) -->
+            <video
+              class="video-el"
+              src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+              poster="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.jpg"
+              playsinline
+              autoplay
+              muted
+              loop
+            ></video>
+
+            <!-- Overlay text -->
+            <div class="video-overlay">
+              <div class="video-tagline d-none d-md-block">your story is just getting started</div>
+
+              <button class="video-button" aria-label="Watch full video">            
+                <VideoIcon class="icon" aria-hidden="true" />
+                <span class="text  d-none d-md-block">Watch full video</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -91,8 +108,16 @@ onBeforeUnmount(() => {
   overflow: hidden;
 
 
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%);
-  background-blend-mode: multiply;
+
+  &:before{
+    content:'';
+    position: absolute;  
+    width:100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%);
+    background-blend-mode: multiply;
+    z-index: 1;
+  }
 }
 
 .video-el {
@@ -106,12 +131,32 @@ onBeforeUnmount(() => {
 .video-overlay {
   position: absolute;
   inset: 0;
-  display: grid;
+  display: flex;
   place-items: center;
   padding: 1rem;
   text-align: center;
+  z-index: 2;
+  max-width: 475px;
+  margin: 0px auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
+.video-tagline-mobile {
+  color: var(--White, #FFF);
+  text-align: center;
+
+  /* H4 Mobile */
+  font-family: Oswald;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 36px; /* 112.5% */
+  text-transform: uppercase;
+
+}
 .video-tagline {
   color: var(--White, #FFF);
   text-align: center;
@@ -121,6 +166,31 @@ onBeforeUnmount(() => {
   font-weight: 600;
   line-height: 110%; /* 55px */
   text-transform: uppercase;
+  margin-bottom: 25px;
+}
+.video-button{
+  background: none;
+  border: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .icon{
+    fill: white;
+    width:48px;
+  }
+
+  color: var(--White, #FFF);
+  text-align: center;
+
+  /* Body/Regular */
+  font-family: Montserrat;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 170%; /* 28.9px */
+
 }
 
 .sr-only {

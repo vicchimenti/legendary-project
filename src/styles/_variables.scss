@@ -1,0 +1,133 @@
+// Base colors
+$navy: #19436f;
+$dark-navy: #22222b;
+$burgundy: #761416;
+$gray: #757575;
+$beast-gray: #666;
+$mid-gray: #d4d8dd;
+$light-gray: #f3f3f3;
+$pale-gray: #ebebeb;
+$white: #fff;
+$steel: #5e7b9a;
+$gray-blue: #e8ecf1;
+$red: #c42535;
+
+// Spacers
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 1.875,
+  5: $spacer * 3,
+);
+
+// Container
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1141px
+) !default;
+
+// Breakpoints
+$grid-breakpoints: (
+  xs: 0,
+  sm: 600px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+$grid-gutter-width: 45px;
+
+// Bootstrap colors
+$primary: $navy;
+$secondary: $dark-navy;
+
+// Fonts
+$font-family-base: "Public Sans", sans-serif;
+$header-font-family: "Cormorant Garamond", serif;
+$font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
+$font-size-sm: $font-size-base;
+$font-size-lg: $font-size-base;
+$h1-font-size: 55px;
+$h2-font-size: 40px;
+$h3-font-size: 35px;
+$h4-font-size: 27px;
+$h5-font-size: 22px;
+$h6-font-size: $font-size-base;
+
+// Text colors
+$text-primary: $dark-navy;
+$body-color: $text-primary;
+$text-secondary: $navy;
+$text-tertiary: $white;
+$text-quaternary: $gray;
+
+// Background colors
+$background-primary: $light-gray;
+$background-secondary: $white;
+$body-bg: $background-primary;
+
+// Link
+$link-decoration: none;
+
+// Nav
+$nav-separator-color: $pale-gray;
+
+// Offcanvas menu
+$offcanvas-vertical-height: max-content;
+
+// Button
+$btn-close-color: $white;
+$btn-close-opacity: 1;
+$btn-border-radius: 0;
+
+// Form
+$form-separator-color: $steel;
+
+// Inputs
+$input-border-radius: 0;
+$input-height: 50px;
+$input-btn-padding-y: 0.75rem;
+$input-placeholder-color: $beast-gray;
+$input-bg: $light-gray;
+$input-font-size: 14px;
+$input-font-weight: 300;
+$input-padding-y: 0.532rem;
+$input-padding-x: 15px;
+
+// Labels
+$form-label-margin-bottom: 0.3rem;
+
+// Pagination
+$pagination-bg: $white;
+$pagination-border-width: none;
+$pagination-padding-y: 0;
+$pagination-padding-x: 0;
+$pagination-padding-y-sm: 0;
+$pagination-padding-x-sm: 0;
+$pagination-padding-y-lg: 0;
+$pagination-padding-x-lg: 0;
+$pagination-border-radius: 0;
+
+// Dropdowns
+$dropdown-border-color: null;
+$dropdown-bg: $background-secondary;
+$dropdown-inner-border-radius: 0;
+$dropdown-padding-x: 1rem;
+
+// Placeholder
+$placeholder-opacity-max: 1;
+
+// Accordion
+$accordion-button-color: $navy;
+$accordion-button-bg: $light-gray;
+$accordion-button-active-color: $dark-navy;
+$accordion-button-active-bg: $white;
+$accordion-bg: $white;
+$accordion-icon-color: $navy;
+$accordion-icon-active-color: $navy;
+$accordion-body-padding-x: 2rem;
