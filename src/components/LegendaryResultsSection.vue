@@ -121,6 +121,7 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 .legendary {
   background: var(--Digital-SU-Red); // page section background
+  overflow:hidden;
   .container{
     position: relative;
     height: 100%;
