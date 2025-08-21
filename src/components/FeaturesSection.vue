@@ -71,7 +71,7 @@ onBeforeUnmount(() => {
           <h3>Begin your legend</h3>
           <p>Discover academic excellence, opportunities and life-changing experiences</p>
           <div class="btn-group">
-            <a href="#" class="btn btn-primary">Apply Now</a>
+            <a href="https://www.seattleu.edu/apply/" class="btn btn-primary">Apply Now</a>
           </div>
         </div>
 
@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
           <h3>Grow your legend</h3>
           <p>Advance your career and your future in one of 50 graduate degree programs.</p>
           <div class="btn-group">
-            <a href="#" class="btn btn-primary">Explore grad school</a>
+            <a href="https://www.seattleu.edu/academics/all-programs/?keywords=&programLevel=graduate&areaOfStudy=&school=" class="btn btn-primary">Explore grad school</a>
           </div>
         </div>
 
@@ -89,7 +89,7 @@ onBeforeUnmount(() => {
           <h3>Celebrate your legend</h3>
           <p>Stay connected with a global community that leads, serves and inspires.</p>
           <div class="btn-group">
-            <a href="#" class="btn btn-primary">Connect now</a>
+            <a href="https://www.seattleu.edu/alumni/" class="btn btn-primary">Connect now</a>
           </div>
         </div>
       </div>
