@@ -187,7 +187,7 @@ $accent: #e63946; /* Example accent color, replace with your brand color */
   background: transparent;
   color: #fff;
   border: 0.5px solid var(--White, #FFF);
-
+  border-radius:0px;
   padding: 40px;
   overflow: visible; /* allow button to hang past the border */
 
