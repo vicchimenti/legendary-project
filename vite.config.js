@@ -21,5 +21,18 @@ export default defineConfig({
         ]
       }
     })
-  ]
+  ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // Make Bootstrap mixins/variables available in every SFC
+        additionalData: `
+          @import "bootstrap/scss/functions";
+          @import "bootstrap/scss/variables";
+          @import "bootstrap/scss/maps";
+          @import "bootstrap/scss/mixins";
+        `
+      }
+    }
+  }
 })

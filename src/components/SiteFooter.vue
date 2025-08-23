@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue'
 import { gsap } from 'gsap'
 
 import DesktopLogo from '../assets/images/Desktop_Logo.svg'
-
+import MobileLogo from '../assets/images/Mobile_Logo.svg'
 const header = ref(null)
 const year = new Date().getFullYear()
 
@@ -19,7 +19,8 @@ onMounted(() => {
 <template>
   <footer class="footer">
     <div class="container">
-      <DesktopLogo class="logo" alt="Seattle University Logo" />
+      <DesktopLogo class="logo d-none d-md-block" alt="Seattle University Logo" />
+      <MobileLogo class="logo d-block d-md-none" alt="Seattle University Logo" />
       <div class=" footer--second ">
         <p class="site-footer__copyright">Copyright © {{ year }} Seattle University</p>
         <ul>
@@ -38,13 +39,24 @@ onMounted(() => {
   background:black
 }
 .footer .container {
-    display: flex;
-    align-items: flex-end;
-    grid-gap:10px;
+  display: flex;
+  align-items: flex-end;
+  grid-gap: 10px;
+  justify-content: space-between;
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 .footer--second {
     display: flex;
     align-items: flex-end;
+    justify-content: space-between;
+    grid-gap: 20px;
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
     p{
       margin:0px;
       color: var(--white, #FFF);
@@ -63,7 +75,13 @@ onMounted(() => {
       flex-wrap: wrap;  
       grid-gap: 5px;
       padding: 0px;
+      @include media-breakpoint-down(md) {
+      
+        flex-direction: column;
+      }
       li{
+
+
         a{
           color:white;
 
@@ -90,5 +108,11 @@ onMounted(() => {
 .logo{
   width: 170px;
   fill: white;
+
+  @include media-breakpoint-down(md) {
+    width:auto;
+    max-width:280px;
+    margin-bottom:40px;
+  }
 }
 </style>

@@ -162,6 +162,12 @@ onBeforeUnmount(() => {
   color: #fff;
   z-index: 1;
 
+  @include media-breakpoint-down(md) {
+    top: unset;
+    bottom: 20px;
+    transform: none;
+  }
+
   .section-subtitle {
     color: var(--White, #FFF);
     font-feature-settings: 'liga' off, 'clig' off;
@@ -172,6 +178,9 @@ onBeforeUnmount(() => {
     font-style: normal;
     font-weight: 700;
     line-height: 170%; /* 30.6px */
+    @include media-breakpoint-down(md) {
+    
+    }
   }
 
   .section-title {
@@ -199,8 +208,17 @@ onBeforeUnmount(() => {
   margin-top: -150px;
   margin-left: 280px;
   width: auto;
+  @include media-breakpoint-down(md) {
+    margin-left: 0px;
+    width: auto !important;
+    margin-top: 0px !important;
+  }
   .inner{
     padding: 40px 0px 0px 70px;
+
+    @include media-breakpoint-down(md) {
+      padding:0px;
+    }
   }
 
   @media (max-width: 960px) {

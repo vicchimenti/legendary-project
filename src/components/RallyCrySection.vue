@@ -105,6 +105,8 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss" scoped>
+
+
 .rally {
   padding: 8rem 0 6rem;
   position: relative;
@@ -137,6 +139,12 @@ onBeforeUnmount(() => {
     font-weight: 700;
     line-height: 40px; /* 133.333% */
     text-transform: uppercase;
+
+    @include media-breakpoint-down(md) {
+      font-size: 22px;
+
+      line-height: 28px;
+    }
     p {
       margin: 0 0 1rem;
       &:last-child { margin-bottom: 0; }

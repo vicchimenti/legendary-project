@@ -125,12 +125,20 @@ $accent: #e63946; /* Example accent color, replace with your brand color */
     z-index: 1;
     width:100%;
     height:100%;
+    @include media-breakpoint-down(md) {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, #000 40%, #000 100%);
+    }
   }
 
   img{
     width: 100%;
     height: 120%;   
     object-fit: cover;
+    object-position: top center;
+    @include media-breakpoint-down(md) {
+      object-fit: contain;
+      object-position: top center;
+    }
   }
 }
 
@@ -149,6 +157,12 @@ $accent: #e63946; /* Example accent color, replace with your brand color */
     font-style: normal;
     font-weight: 700;
     line-height: 170%; /* 30.6px */
+
+    @include media-breakpoint-down(md) {
+      font-size: 14px;
+      line-height: 170%;
+    }
+
   }
   .section-title{
     color: var(--White, #FFF);
@@ -161,6 +175,11 @@ $accent: #e63946; /* Example accent color, replace with your brand color */
     font-weight: 700;
     line-height: 70px; /* 112.903% */
     text-transform: uppercase;
+
+    @include media-breakpoint-down(md) {
+      font-size: 32px;
+      line-height: 36px; 
+    }
   }
 }
 /* Extra bottom padding so overlapped buttons don't get clipped */
@@ -171,13 +190,17 @@ $accent: #e63946; /* Example accent color, replace with your brand color */
   gap: 1.2rem;
   grid-template-columns: 1fr;
 
-  @media (min-width: 760px) {
+  @include media-breakpoint-down(md) {
+    gap: 3rem;
+  }
+
+  @include media-breakpoint-up(md) {
     grid-template-columns: repeat(3, 1fr);
   }
   .card{
-      @media (min-width: 760px) {
-    grid-column:auto;
-      }
+    @include media-breakpoint-up(md) {
+      grid-column:auto;
+    }
   }
 }
 
@@ -201,6 +224,11 @@ $accent: #e63946; /* Example accent color, replace with your brand color */
     font-weight: 700;
     line-height: 100%; /* 18px */
     margin-bottom: 24px;
+
+    @include media-breakpoint-down(md) {
+      font-size: 14px;
+      line-height: 170%;
+    }
   }
 
   h3 { 
@@ -214,6 +242,11 @@ $accent: #e63946; /* Example accent color, replace with your brand color */
     line-height: 60px; /* 120% */
     text-transform: uppercase;
     margin-bottom: 24px;
+
+    @include media-breakpoint-down(md) {
+      font-size: 32px;
+      line-height: 36px; 
+    }
   }
   p  { 
     
@@ -227,6 +260,11 @@ $accent: #e63946; /* Example accent color, replace with your brand color */
     font-style: normal;
     font-weight: 500;
     line-height: 160%; /* 25.6px */
+
+    @include media-breakpoint-down(md) {
+      font-size: 15px;
+      line-height: 26px;
+    }
    }
 
   /* Overlapping button */

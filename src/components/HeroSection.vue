@@ -9,6 +9,9 @@ const titleInner = ref(null)  // inner: scroll scale
 let ctx
 let ro // ResizeObserver
 
+
+const scaleStart = 0.7;
+
 function fitToWidth() {
   const wrap = titleWrap.value
   const inner = titleInner.value
@@ -21,12 +24,60 @@ function fitToWidth() {
   gsap.set(wrap, { scale: fitScale, transformOrigin: 'center top' })
 }
 
+function initScrollAnimation() {
+  if (window.innerWidth < 1000) {
+
+  }else{
+
+    // DESKTOP Scroll Animation
+
+  
+  }
+
+}
+
 onMounted(async () => {
+
+
+
   await nextTick()
   if (document?.fonts?.ready) {
     try { await document.fonts.ready } catch (_) {}
   }
 
+  // window.addEventListener("resize", scrollAnimation);
+  // initScrollAnimation();
+
+
+  ctx = gsap.context(() => {
+    gsap.from(titleInner.value, {
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out'
+    })
+
+
+    // Scroll-grow
+    gsap.fromTo(
+      titleInner.value,
+      { scale: scaleStart },
+      {
+        scale: 1,
+        scrollTrigger: {
+          trigger: titleInner.value,
+          start: 'top 40%',
+          end: 'bottom top',
+          scrub: true,
+        },
+        transformOrigin: 'center top',
+        ease: 'none'
+      }
+    )
+
+  })
+
+  // initial fit and resize handling for titleWrap scaling
   fitToWidth()
   if ('ResizeObserver' in window) {
     ro = new ResizeObserver(() => fitToWidth())
@@ -35,55 +86,16 @@ onMounted(async () => {
     window.addEventListener('resize', fitToWidth)
   }
 
-  // // GSAP animations
-  // ctx = gsap.context(() => {
-  //   // Intro (scale from 0.8 to its current size smoothly)
-  //   gsap.from(titleInner.value, {
-  //     y: 30,
-  //     opacity: 0,
-  //     duration: 0.8,
-  //     ease: 'power3.out'
-  //   })
-
-
-  //   // Scroll-grow
-  //   gsap.fromTo(
-  //     titleInner.value,
-  //     { scale: 0.8 },    // start at 0.8
-  //     {
-  //       scale: 1,
-  //       scrollTrigger: {
-  //         trigger: titleWrap.value,
-  //         start: 'top 40%',
-  //         end: 'bottom top',
-  //         scrub: true,
-  //       },
-  //       transformOrigin: 'center top',
-  //       ease: 'none'
-  //     }
-  //   )
- 
-  // })
-
-
-
 })
 
-// onBeforeUnmount(() => {
-//   ctx && ctx.revert()
-//   if (ro) {
-//     ro.disconnect()
-//   } else {
-//     window.removeEventListener('resize', fitToWidth)
-//   }
-// })
+
 </script>
 
 <template>
   <section class="hero container">
-    <!-- OUTER: gets “fit” scaling to never wrap -->
+    <!-- OUTER: gets “fit” scaling -->
     <div class="hero-title" ref="titleWrap">
-      <!-- INNER: gets scroll-driven GSAP scale -->
+      <!-- INNER: gets scroll trigger GSAP scale -->
       <div class="hero-title-inner" ref="titleInner">
         <svg xmlns="http://www.w3.org/2000/svg" width="86" height="118" viewBox="0 0 86 118" fill="none">
           <path d="M74.7766 0C74.7046 0 74.6428 0.0207127 74.5707 0.062138C70.2357 2.7755 66.3538 5.95489 62.5234 9.17571C62.4719 9.22749 62.4102 9.2482 62.3484 9.2482C62.1424 9.2482 61.9777 8.99965 62.1321 8.79252C62.8117 7.92259 63.8826 6.91803 64.6652 5.95489C64.8608 5.71669 64.6652 5.39565 64.3974 5.39565C64.3563 5.39565 64.3048 5.39565 64.2636 5.42672C59.8051 7.3737 55.3568 11.9098 51.0013 15.9177C47.315 19.3146 39.5821 26.4708 38.6039 30.7169C37.9964 33.337 38.7995 36.2264 38.6039 38.5152C38.12 44.0455 36.9255 48.3744 33.4143 51.5331C29.6971 52.082 23.6838 52.0405 21.8716 54.5054C21.1302 55.6238 21.8201 58.0783 22.7159 59.1657C23.1072 58.6686 23.4264 58.4718 23.7147 58.4718C24.2398 58.4718 24.662 59.1346 25.1357 59.7974C25.6093 60.4602 26.1447 61.123 26.917 61.123C26.9376 61.123 26.9582 61.123 26.9891 61.123C24.1575 67.1608 17.1556 67.3368 12.2646 71.2515C9.37122 73.5714 7.98115 78.6252 5.68496 82.9438C2.946 88.0495 1.07198 92.5649 0.00111085 99.9903C-0.00918597 100.291 0.052595 100.415 0.16586 100.415C0.423281 100.415 0.938122 99.8039 1.44267 99.1929C1.94721 98.5819 2.45175 97.9709 2.67828 97.9709C2.88422 99.8868 0.835154 105.396 1.80305 108.265C1.83395 108.265 1.87513 108.265 1.90602 108.265C3.2858 108.265 3.89331 105.055 4.83032 104.723C4.97448 107.437 3.76975 112.77 4.52142 114.893C7.65165 111.745 6.71464 110.129 7.91937 108.773C8.32094 110.668 7.21918 116.592 8.39302 118C10.7407 116.467 11.0702 110.171 11.41 106.608C12.4088 108.969 11.8939 115.773 13.4282 117.606C16.7334 115.214 15.9509 108.721 18.8443 105.914C18.9576 105.024 18.7516 104.454 18.072 104.361C18.0823 104.143 18.1544 104.071 18.2677 104.071C18.3912 104.071 18.5766 104.174 18.8031 104.278C19.0193 104.381 19.2768 104.485 19.5445 104.485C19.6989 104.485 19.8534 104.454 20.0078 104.371C21.0066 102.9 21.9848 102.859 22.407 100.819C23.3337 100.653 26.2992 96.0964 26.8346 93.2587C27.5245 92.0056 28.5542 92.482 28.719 90.6904C32.4773 89.8826 34.8662 85.7711 37.3065 85.564C39.3247 83.1302 41.8474 79.7126 44.8026 77.8796C46.1 77.0925 47.4077 76.585 48.3962 75.8705L58.7857 90.2865C59.6815 89.6444 60.9892 89.3337 62.2145 88.8676C63.0691 88.5466 63.0383 87.4695 63.9135 87.3142C65.7257 87.0139 68.6912 84.6837 68.7736 83.0577C69.3914 82.3742 70.9462 81.7839 71.7597 80.4272C72.1612 79.7541 72.5937 78.967 72.9335 78.1696C73.3557 77.1754 73.6543 76.1397 73.6028 75.2284C75.8887 73.5403 76.0843 72.3286 75.9814 70.7337C75.9093 69.7395 75.7857 68.2586 76.4962 65.9491C65.5198 63.4843 69.2678 64.6753 60.2478 62.5522C59.6918 62.4279 59.4138 61.8066 59.6609 61.2991C61.0201 58.5029 61.2157 55.7481 62.2969 54.205C63.6664 52.258 63.3575 50.0936 64.1606 47.8773C64.4386 47.1006 64.346 46.2306 65.0461 45.4539C66.7554 43.5587 66.0346 39.8512 66.9922 37.3656C67.3011 36.5578 67.4762 35.6983 67.4144 34.8283C67.3629 34.093 67.4762 33.5441 67.7439 32.9849C68.1352 32.1771 68.4029 31.3072 68.5368 30.4165C68.5779 30.168 68.6294 29.9712 68.7118 29.7434C68.9692 29.0495 69.4326 28.4385 70.0092 27.9724C71.6773 26.6158 73.1291 25.228 73.2012 23.571C73.2321 22.9289 73.5616 22.3386 74.0867 21.9761C75.1473 21.2305 75.899 20.1845 76.558 19.0349C76.5889 18.8692 76.5889 18.745 76.558 18.6414C76.4344 18.2168 76.6712 17.7818 77.114 17.7197C77.4744 17.6679 77.8348 17.6161 78.1025 17.4815C79.1116 13.9189 83.8172 12.6554 85.8148 10.3874C86.2473 9.89029 85.8663 9.14464 85.2485 9.14464C85.197 9.14464 85.1455 9.14464 85.1043 9.15499C81.0474 9.92136 77.7833 11.4955 73.9632 12.5001C73.9529 12.5001 73.9323 12.5001 73.922 12.5001C73.7778 12.5001 73.7058 12.2826 73.8602 12.2101C78.1025 10.0974 82.5507 8.19186 85.6398 4.91926C85.8972 4.64999 85.7119 4.20467 85.3412 4.20467C81.0165 4.25645 77.5774 7.40477 73.6131 8.88573C73.5925 8.88573 73.5616 8.89609 73.541 8.89609C73.3763 8.89609 73.2733 8.65789 73.438 8.54397C76.6301 6.42092 79.7191 4.18396 82.0771 1.22205C82.3139 0.932069 82.0874 0.517816 81.7476 0.517816C81.7167 0.517816 81.6755 0.517816 81.6446 0.528173C77.0625 1.60523 73.1806 5.56135 68.8766 7.89152C68.8354 7.91223 68.8045 7.92259 68.7736 7.92259C68.5882 7.92259 68.4647 7.67404 68.6294 7.52905C70.9874 5.37493 73.9735 3.87327 75.137 0.517816C75.2297 0.248552 75.0135 0 74.7766 0Z" fill="white"/>
@@ -95,6 +107,8 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
+
+
 .hero {
   padding: 0px;
   text-align: center;
@@ -105,6 +119,9 @@ onMounted(async () => {
 }
 
 .hero-title {
+
+
+
   display: flex;
   justify-content: center;
   align-items: flex-start; /* top align */
@@ -113,13 +130,12 @@ onMounted(async () => {
 
   position: relative;
 
-
   .hero-title-inner {
     display: flex;
     justify-content: center;
     transform-origin: center top;
-
-
+    --scale-start: 0.8;
+    transform: scale(var(--scale-start));
 
       svg {
         position: absolute;
@@ -135,19 +151,14 @@ onMounted(async () => {
         font-feature-settings: 'liga' off, 'clig' off;
         font-family: 'Oswald', sans-serif;
 
-        /* Target max size */
         font-size: 175px;
         font-weight: 700;
-        line-height: 0.5; /* your original 86px against 175px ≈ 0.49; keep tight */
+        line-height: 0.5; 
         text-transform: uppercase;
 
-        /* Never wrap; we scale the whole thing instead */
-        // white-space: nowrap;
-
-        /* Prevent subpixel jiggle during scale */
         letter-spacing: 0.05em;
 
-          margin: 0 auto;
+        margin: 0 auto;
         white-space: nowrap;
       }
 

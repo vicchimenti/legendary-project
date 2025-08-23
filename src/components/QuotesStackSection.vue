@@ -7,6 +7,9 @@ gsap.registerPlugin(ScrollTrigger)
 const section = ref(null)
 let ctx
 
+import QuoteOpen from '../assets/images/Quote_open.svg'
+import QuoteClose from '../assets/images/Quote_close.svg'
+
 // FPO data — swap with CMS/props
 const quotes = [
   {
@@ -58,7 +61,7 @@ onMounted(async () => {
       // Optional: smooth size/opacity change tied to scroll
       gsap.fromTo(
         el,
-        { opacity: 0.35, scale: 0.99 },
+        { opacity: 0.3, scale: 0.99 },
         {
           opacity: 1,
           scale: 1,
@@ -66,7 +69,7 @@ onMounted(async () => {
           scrollTrigger: {
             trigger: el,
             start: 'center 70%',
-            end: 'center 30%',
+            end: 'center 60%',
             scrub: true
           }
         }
@@ -91,7 +94,12 @@ onBeforeUnmount(() => {
           :key="i"
           class="q-item"
         >
+                <div class="quote-open">
+              <QuoteOpen aria-hidden="true" />
+            </div>
           <figure class="q-figure">
+    
+            
             <blockquote class="q-text">
               {{ q.quote }}
             </blockquote>
@@ -99,7 +107,13 @@ onBeforeUnmount(() => {
               <div class="q-who">{{ q.who }}</div>
               <div class="q-what">{{ q.what }}</div>
             </figcaption>
+
+  
           </figure>
+
+            <div class="quote-close">
+              <QuoteClose aria-hidden="true" />
+            </div>
         </li>
       </ul>
     </div>
@@ -131,9 +145,60 @@ onBeforeUnmount(() => {
   will-change: transform, opacity;
 
   &.is-active { opacity: 1; }
+
+
+
+  .quote-open,
+  .quote-close{
+    opacity:0;
+
+    position: absolute;
+
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .2s ease, transform .25s ease;
+    width: 91px;
+    height: 71px;
+    svg{
+
+      path{
+        fill:white;
+      }
+      fill:white;
+    }
+  
+  }
+
+  .quote-open{
+    left: -105px;
+    top: -70px;
+    transform: translateY(-6px);
+  }
+
+  .quote-close{
+    right: -105px;
+    bottom: -10px;
+    transform: translateY(-6px);
+  }
+  
+  &.is-active{
+    .quote-open{
+      opacity:1;
+    }
+    .quote-close{
+      opacity:1;
+    }
+  }
+
+
+
 }
 
-.q-figure { margin: 0; }
+.q-figure { 
+  margin: 0; 
+
+  
+}
 
 .q-text {
   position: relative;
@@ -148,36 +213,41 @@ onBeforeUnmount(() => {
   line-height: 34px; /* 121.429% */
 
   /* Big framing quotation marks only when active */
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity .2s ease, transform .25s ease;
-  }
+  // &::before,
+  // &::after {
+  //   content: "";
+  //   position: absolute;
+  //   inset: 0;
+  //   pointer-events: none;
+  //   opacity: 0;
+  //   transition: opacity .2s ease, transform .25s ease;
+  // }
 
-  /* stylized quotes using pseudo elements */
-  .is-active &::before {
-    content: "“";
-    left: -0.55em;
-    top: -0.25em;
-    font-size: clamp(3rem, 10vw, 5.5rem);
-    color: rgba(200, 30, 30, 0.18); /* soft red tint */
-    opacity: 1;
-    transform: translateY(-6px);
-  }
 
-  .is-active &::after {
-    content: "”";
-    right: -0.4em;
-    bottom: -0.6em;
-    font-size: clamp(3rem, 10vw, 5.5rem);
-    color: rgba(200, 30, 30, 0.18);
-    opacity: 1;
-    transform: translateY(6px);
-  }
+
+
+  // /* stylized quotes using pseudo elements */
+  // .is-active &::before {
+  //   content: "“";
+  //   left: -0.55em;
+  //   top: -0.25em;
+  //   font-size: clamp(3rem, 10vw, 5.5rem);
+  //   color: rgba(200, 30, 30, 0.18); /* soft red tint */
+  //   opacity: 1;
+  //   transform: translateY(-6px);
+  // }
+
+  // .is-active &::after {
+  //   content: "”";
+  //   right: -0.4em;
+  //   bottom: -0.6em;
+  //   font-size: clamp(3rem, 10vw, 5.5rem);
+  //   color: rgba(200, 30, 30, 0.18);
+  //   opacity: 1;
+  //   transform: translateY(6px);
+  // }
+
+
 }
 
 .q-meta {

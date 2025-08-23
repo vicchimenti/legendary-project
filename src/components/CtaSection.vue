@@ -85,7 +85,7 @@ onBeforeUnmount(() => {
 
 <template>
   <section class="cta-alt" ref="section" aria-labelledby="cta-alt-heading">
-    <h2 id="cta-alt-heading" class="sr-only">Calls to Action</h2>
+    <h2 id="cta-alt-heading" class="sr-only">Get Started</h2>
     <div class="container">
       <div
         v-for="(item, i) in ctas"

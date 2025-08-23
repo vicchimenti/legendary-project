@@ -6,10 +6,23 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 import VideoIcon from '../assets/images/circle-play-solid-full.svg'
+import Close from '../assets/images/CLOSE.svg'
 
 const section = ref(null)
 let ctx
 let onWinLoad
+
+
+const isOpen = ref(false);
+const videoUrl = "https://player.vimeo.com/video/76979871"; 
+
+function openModal() {
+  isOpen.value = true;
+}
+
+function closeModal() {
+  isOpen.value = false;
+}
 
 onMounted(async () => {
   await nextTick()
@@ -41,15 +54,9 @@ onBeforeUnmount(() => {
 
 
 <template>
-
-
   <section class="video-section section" ref="section" aria-labelledby="video-heading">
-
     <div class="video-tagline-mobile d-block d-md-none">your story is just getting started</div>
     <div class="video-section-inner">
-
-
-
       <div class="container">
         <h2 id="video-heading" class="sr-only">Feature Video</h2>
 
@@ -72,7 +79,7 @@ onBeforeUnmount(() => {
             <div class="video-overlay">
               <div class="video-tagline d-none d-md-block">your story is just getting started</div>
 
-              <button class="video-button" aria-label="Watch full video">            
+              <button class="video-button" aria-label="Watch full video"  @click="openModal">            
                 <VideoIcon class="icon" aria-hidden="true" />
                 <span class="text  d-none d-md-block">Watch full video</span>
               </button>
@@ -81,6 +88,25 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </div>
+
+
+    <!-- Modal -->
+    <div v-if="isOpen" class="modal-overlay" @click="closeModal">
+      <div class="modal-content" @click.stop>
+        <button @click="closeModal" aria-label="Close Video"><Close /></button>
+        <iframe
+          :src="videoUrl"
+          width="640"
+          height="360"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+
+      </div>
+    </div>
+
+
   </section>
 </template>
 
@@ -191,6 +217,44 @@ onBeforeUnmount(() => {
   font-weight: 500;
   line-height: 170%; /* 28.9px */
 
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: none;
+  padding: 0px;
+  border-radius: 8px;
+  position: relative;
+  width: auto;
+  button{
+    position: absolute;
+    right: 0px;
+    top: -55px;
+    height: 55px;
+    width: 55px;
+    border: none;
+    background: black;
+    box-shadow: none;
+    svg{
+      fill:white
+    }
+
+    &:hover{
+      background: var(--Digital-SU-Red, #A00);
+    }
+  }
+}
+iframe {
+  display: block;
+  max-width: 100%;
 }
 
 .sr-only {
