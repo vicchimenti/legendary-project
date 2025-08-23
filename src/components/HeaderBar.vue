@@ -56,10 +56,10 @@ onBeforeUnmount(() => {
           </button>
 
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">Admissions</a></li>
-            <li><a class="dropdown-item" href="#">Explore Programs</a></li>
-            <li><a class="dropdown-item" href="#">Campus Life</a></li>
-            <li><a class="dropdown-item" href="#">The Seattle U Impact</a></li>
+            <li><a class="dropdown-item" href="https://www.seattleu.edu/admissions-aid/">Admissions</a></li>
+            <li><a class="dropdown-item" href="https://www.seattleu.edu/academics/all-programs/">Explore Programs</a></li>
+            <li><a class="dropdown-item" href="https://www.seattleu.edu/life-at-seattle-u/">Campus Life</a></li>
+            <li><a class="dropdown-item" href="https://www.seattleu.edu/who-we-are/the-seattle-u-impact/">The Seattle U Impact</a></li>
           </ul>
         </div>
       </div>
