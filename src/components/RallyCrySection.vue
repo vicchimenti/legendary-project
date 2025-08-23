@@ -5,6 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+import DesktopLogo from '../assets/images/Desktop_Logo.svg'
+
 const section = ref(null)
 let ctx
 let onWinLoad
@@ -98,8 +100,8 @@ onBeforeUnmount(() => {
       </div>
     </div>
     <div class="rally-logo" aria-hidden="true">
-      <img src="../assets/images/Desktop_Logo.svg" alt="Seattle University Logo" />
-
+    
+      <DesktopLogo alt="Seattle University Logo" style="fill:white; width:170px;"/>
     </div>
   </section>
 </template>

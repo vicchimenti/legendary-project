@@ -14,7 +14,7 @@ let onWinLoad
 
 
 const isOpen = ref(false);
-const videoUrl = "https://player.vimeo.com/video/76979871"; 
+const videoUrl = "https://player.vimeo.com/video/1003737596"; 
 
 function openModal() {
   isOpen.value = true;
@@ -67,8 +67,8 @@ onBeforeUnmount(() => {
             <!-- Replace src/poster with your asset(s) -->
             <video
               class="video-el"
-              src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
-              poster="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.jpg"
+              src="https://download-video-ak.vimeocdn.com/v3-1/playback/db41e502-f0f3-4438-976e-1e47e4630ee2/5d36b664-09628be3?__token__=st=1755909583~exp=1755913183~acl=%2Fv3-1%2Fplayback%2Fdb41e502-f0f3-4438-976e-1e47e4630ee2%2F5d36b664-09628be3%2A~hmac=f56f7f9666bcad30564b99ae17b0ec8366e152ba8f6881c13eb6339ea8b53735&r=dXMtd2VzdDE%3D"
+              poster="https://i.vimeocdn.com/video/876420319_1920x1080.jpg"
               playsinline
               autoplay
               muted
