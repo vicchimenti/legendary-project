@@ -10,31 +10,37 @@ import PhotoGridMobile from '../assets/images/Photo_GRID_MOBILE.jpg'
 
 const section = ref(null)
 let ctx
-
 onMounted(async () => {
   await nextTick()
 
   ctx = gsap.context(() => {
-    // Animate each card when it scrolls into view
-    gsap.utils.toArray('.feature-card').forEach((card) => {
-      gsap.from(card, {
-        y: 30,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 80%',                 // fire per-card
-          toggleActions: 'play none none reverse'
-          // markers: true,
-        }
-      })
-    })
-  }, section)
-})
+    const q = gsap.utils.selector(section.value)
+    const cards = q('.feature-card')
 
-onBeforeUnmount(() => {
-  ctx && ctx.revert()
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: section.value,
+        start: 'top 40%',
+        toggleActions: 'play none none reverse',
+        // markers: true,
+      }
+    }).from(cards, {
+      y: 30,
+      opacity: 0,
+      duration: 0.6,
+      ease: 'power2.out',
+      // key bit: sequential entrance
+      stagger: {
+        each: 0.12,      // gap between cards
+        from: 'start',   // start from first item
+        grid: 'auto'     // respects CSS grid/flex wrapping order
+      }
+    })
+
+    ScrollTrigger.refresh()
+  }, section)
+
+  onBeforeUnmount(() => ctx?.revert()) // 6) clean up on unmount
 })
 </script>
 

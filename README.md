@@ -1,5 +1,20 @@
-# Vue 3 + Vite
+# SeattleU Be Legendary Project
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Setting up the project and running locally
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+### 1) Install dependencies
+`npm install`
+
+### 2) Start the dev server
+`npm run dev`  
+open the printed URL (usually http://localhost:5173)
+
+### 3) Build for production
+`npm run build`
+
+### 4) Preview the production build locally
+`npm run preview`
+
+
+## Asset Output Directory
+This is controlled with the `VITE_BASE` environment variable defined in .env.production.  

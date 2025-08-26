@@ -1,5 +1,8 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+gsap.registerPlugin(ScrollTrigger)
 
 const section = ref(null)
 const track = ref(null)
@@ -8,6 +11,8 @@ const nextDisabled = ref(false)
 
 let resizeObserver
 let slideWidth = 0
+
+let ctx
 
 const measureSlideWidth = () => {
   const firstSlide = track.value?.querySelector('.slide')
@@ -36,7 +41,6 @@ const onKey = (e) => {
   if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollBySlides(-1) }
 }
 
-// Example data — replace with props/CMS later
 const items = ref([
   {
     img: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=1600&auto=format&fit=crop',
@@ -61,26 +65,61 @@ const items = ref([
   },
 ])
 
+
 onMounted(async () => {
   await nextTick()
+
   measureSlideWidth()
   syncButtons()
 
   track.value?.addEventListener('scroll', syncButtons, { passive: true })
   window.addEventListener('resize', measureSlideWidth)
 
-  // ResizeObserver handles container/layout changes
   resizeObserver = new ResizeObserver(() => {
     measureSlideWidth()
     syncButtons()
+    ScrollTrigger.refresh()
   })
   if (track.value) resizeObserver.observe(track.value)
+
+  ctx = gsap.context(() => {
+    const q = gsap.utils.selector(section.value)
+    const heading  = q('.section-heading')
+    const controls = q('.controls')
+    const slides   = q('.slide')
+
+    gsap.set([heading, controls, slides], { opacity: 0, y: 20 })
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: section.value,
+        start: 'top 70%',
+        toggleActions: 'play none none reverse',
+
+      }
+    })
+    .to(heading,  { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' })
+    .to(controls, { opacity: 1, y: 0, duration: 0.30, ease: 'power2.out' }, '-=0.15')
+    .to(slides, {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,
+      ease: 'power2.out',
+      stagger: { each: 0.12, from: 'start', grid: 'auto' }, // left→right
+      clearProps: 'transform,opacity'
+    }, '-=0.1')
+
+    Array.from(track.value?.querySelectorAll('img') ?? []).forEach(img => {
+      img.addEventListener('load', () => ScrollTrigger.refresh(), { once: true })
+    })
+  }, section)
 })
 
 onBeforeUnmount(() => {
   track.value?.removeEventListener('scroll', syncButtons)
   window.removeEventListener('resize', measureSlideWidth)
   resizeObserver?.disconnect()
+  ctx?.revert() // cleans up tweens + ScrollTriggers created in this context
 })
 </script>
 
