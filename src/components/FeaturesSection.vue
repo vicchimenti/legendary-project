@@ -38,7 +38,7 @@ onMounted(async () => {
     })
 
     ScrollTrigger.refresh()
-  }, section)
+  }, section.value)
 
   onBeforeUnmount(() => ctx?.revert()) // 6) clean up on unmount
 })

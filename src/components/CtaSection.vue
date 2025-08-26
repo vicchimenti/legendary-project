@@ -5,8 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 
-import UndergradImg from '../assets/images/Seattle-U-UL-Undergrad-1-R3-1.jpg'
-import GradImg      from '../assets/images/Seattle-U-UL-Grad-1-R3-2.jpg'
+import UndergradImg from '../assets/images/Seattle-U-UL-Undergrad-1-LEFT.png'
+import GradImg      from '../assets/images/Seattle-U-UL-Undergrad-1-RIGHT.png'
 
 const section = ref(null)
 let ctx
@@ -75,7 +75,7 @@ onMounted(async () => {
         })
       }
     })
-  }, section)
+  }, section.value)
 })
 
 onBeforeUnmount(() => {
@@ -133,7 +133,7 @@ onBeforeUnmount(() => {
   .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
 
 
-  background:  url('../assets/images/TEXTURE_BG_.jpg');
+  background:  url('../assets/images/TEXTURE-BG_2300.jpg');
   background-repeat: repeat;
   background-position: right;
   background-size: 100% auto;
@@ -256,7 +256,7 @@ onBeforeUnmount(() => {
   font-weight: 600;
   line-height: 20px; /* 133.333% */
 
-
+  &:hover, &:focus { box-shadow: 0 10px 26px rgba(0,0,0,.2); transform: translateY(-1px); }
 
   &:active { transform: translateY(1px); }
 }

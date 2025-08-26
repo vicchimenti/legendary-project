@@ -14,9 +14,13 @@ let onWinLoad
 onMounted(async () => {
   await nextTick()
 
+
+  const scopeEl = section.value
+
+
   ctx = gsap.context(() => {
     // 1) Line-by-line fade to white as each crosses the viewport middle
-    const lines = section.value.querySelectorAll('.rally-line')
+    const lines = gsap.utils.toArray('.rally-line', scopeEl)
     lines.forEach((line) => {
       gsap.fromTo(
         line,
@@ -36,28 +40,28 @@ onMounted(async () => {
     })
 
     // 2) Each image animates in individually at the same middle point
-    const images = section.value.querySelectorAll('.rally-img')
-    images.forEach((img, i) => {
-      gsap.from(img, {
-        y: i % 2 ? 30 : -30,
-        opacity: 0,
-        rotate: i % 2 ? 2 : -2,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: img,
-          start: 'top center',
-          end: 'bottom center',
-          scrub: true,
-          // markers: true,          // <-- uncomment to debug
-        }
-      })
-    })
-  }, section)
+    // const images = section.value.querySelectorAll('.rally-img')
+    // images.forEach((img, i) => {
+    //   gsap.from(img, {
+    //     y: i % 2 ? 30 : -30,
+    //     opacity: 0,
+    //     rotate: i % 2 ? 2 : -2,
+    //     duration: 0.6,
+    //     ease: 'power2.out',
+    //     scrollTrigger: {
+    //       trigger: img,
+    //       start: 'top center',
+    //       end: 'bottom center',
+    //       scrub: true,
+    //       // markers: true,          // <-- uncomment to debug
+    //     }
+    //   })
+    // })
+  }, scopeEl)
 
-  // Images loading can change layout; refresh triggers after load.
-  onWinLoad = () => ScrollTrigger.refresh()
-  window.addEventListener('load', onWinLoad)
+  // // Images loading can change layout; refresh triggers after load.
+  // onWinLoad = () => ScrollTrigger.refresh()
+  // window.addEventListener('load', onWinLoad)
 
   // If you lazy-load images, also refresh after each loads:
   section.value.querySelectorAll('img[loading="lazy"]').forEach(img => {

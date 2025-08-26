@@ -57,11 +57,11 @@ onMounted(async () => {
         }
       })
     }
-  }, section)
+  }, section.value)
 
-  // Keep triggers accurate after media load / layout shift
-  onWinLoad = () => ScrollTrigger.refresh()
-  window.addEventListener('load', onWinLoad)
+  // // Keep triggers accurate after media load / layout shift
+  // onWinLoad = () => ScrollTrigger.refresh()
+  // window.addEventListener('load', onWinLoad)
 })
 
 onBeforeUnmount(() => {

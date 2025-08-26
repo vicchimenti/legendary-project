@@ -1,7 +1,8 @@
 <script setup>
-import { onMounted, onBeforeUnmount, ref, nextTick } from 'vue'
+import { onMounted, onBeforeUnmount, ref, nextTick, computed } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Player from "@vimeo/player";
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -10,11 +11,46 @@ import Close from '../assets/images/CLOSE.svg'
 
 const section = ref(null)
 let ctx
+
+
 let onWinLoad
 
 
+let isPaused = ref(false);
+let player = null;
+let unsubs = [];
+
 const isOpen = ref(false);
-const videoUrl = "https://player.vimeo.com/video/1003737596"; 
+
+const vimeoId = 1003737596; 
+
+const embedUrl = computed(() => {
+  const origin = encodeURIComponent(window.location.origin);
+  return `https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0&portrait=0&playsinline=1&dnt=1&origin=${origin}`;
+});
+
+async function togglePlayback() {
+
+
+  try {
+    const paused = await player.getPaused();
+    if (paused) await player.play();
+    else await player.pause();
+
+  } catch (e) {
+    console.warn("togglePlayback failed, retrying init:", e);
+    try {
+      const paused = await player.getPaused();
+      if (paused) await player.play();
+      else await player.pause();
+    } catch (e2) {
+      console.error("togglePlayback retry failed:", e2);
+    }
+  }
+
+  try { isPaused.value = await player.getPaused(); } catch {}
+
+}
 
 function openModal() {
   isOpen.value = true;
@@ -27,25 +63,38 @@ function closeModal() {
 onMounted(async () => {
   await nextTick()
 
-  ctx = gsap.context(() => {
+  player = new Player("bgVimeo");
 
 
-    // Optional: lift the video box in
-    gsap.from('.video-box', {
-      y: 30, opacity: 0, duration: 0.8, ease: 'power2.out',
-      scrollTrigger: { trigger: section.value, start: 'top 85%' }
-    })
-  }, section)
+  // ctx = gsap.context(() => {
+
+
+  //   // Optional: lift the video box in
+  //   gsap.from('.video-wrap', {
+  //     y: 30, opacity: 0, duration: 0.8, ease: 'power2.out',
+  //     scrollTrigger: { trigger: section.value, start: 'top 85%' }
+  //   })
+  // }, section)
 
   // Refresh after media loads so positions are accurate
-  onWinLoad = () => ScrollTrigger.refresh()
+
   window.addEventListener('load', onWinLoad)
   section.value.querySelectorAll('video').forEach(v => {
     v.addEventListener('loadeddata', () => ScrollTrigger.refresh(), { once: true })
   })
+
+
+
 })
 
+
+
 onBeforeUnmount(() => {
+
+  unsubs.forEach((fn) => fn());
+  unsubs = [];
+  player?.unload();
+
   window.removeEventListener('load', onWinLoad)
   ctx && ctx.revert()
 })
@@ -63,26 +112,36 @@ onBeforeUnmount(() => {
         
         <div class="video-wrap">
           <div class="video-box">
-            <!-- Background video inside the box -->
-            <!-- Replace src/poster with your asset(s) -->
-            <video
+
+
+            <iframe
+              id="bgVimeo"
               class="video-el"
-              src="https://download-video-ak.vimeocdn.com/v3-1/playback/db41e502-f0f3-4438-976e-1e47e4630ee2/5d36b664-09628be3?__token__=st=1755909583~exp=1755913183~acl=%2Fv3-1%2Fplayback%2Fdb41e502-f0f3-4438-976e-1e47e4630ee2%2F5d36b664-09628be3%2A~hmac=f56f7f9666bcad30564b99ae17b0ec8366e152ba8f6881c13eb6339ea8b53735&r=dXMtd2VzdDE%3D"
-              poster="https://i.vimeocdn.com/video/876420319_1920x1080.jpg"
-              playsinline
-              autoplay
-              muted
-              loop
-            ></video>
+              :src=embedUrl
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+              aria-hidden="true"
+              tabindex="-1"
+            />
+
+            <button
+              class="video-toggle"
+              @click="togglePlayback"
+              :aria-pressed="!isPaused"
+              :aria-label="isPaused ? 'Play background video' : 'Pause background video'"
+              type="button"
+            >
+              {{ isPaused ? "Play" : "Pause" }}
+            </button>
 
             <!-- Overlay text -->
             <div class="video-overlay">
               <div class="video-tagline d-none d-md-block">your story is just getting started</div>
 
-              <button class="video-button" aria-label="Watch full video"  @click="openModal">            
+              <!-- <button class="video-button" aria-label="Watch full video"  @click="openModal">            
                 <VideoIcon class="icon" aria-hidden="true" />
                 <span class="text  d-none d-md-block">Watch full video</span>
-              </button>
+              </button> -->
             </div>
           </div>
         </div>
@@ -91,7 +150,7 @@ onBeforeUnmount(() => {
 
 
     <!-- Modal -->
-    <div v-if="isOpen" class="modal-overlay" @click="closeModal">
+    <!-- <div v-if="isOpen" class="modal-overlay" @click="closeModal">
       <div class="modal-content" @click.stop>
         <button @click="closeModal" aria-label="Close Video"><Close /></button>
         <iframe
@@ -104,7 +163,7 @@ onBeforeUnmount(() => {
         ></iframe>
 
       </div>
-    </div>
+    </div> -->
 
 
   </section>
@@ -115,7 +174,7 @@ onBeforeUnmount(() => {
   padding: 0rem 0 0rem;
   background:
     linear-gradient(to bottom, var(--page-bg) 0 50%, transparent 50% 100%),
-    url('../assets/images/TEXTURE_BG_.jpg');
+    url('../assets/images/TEXTURE-BG_2300.jpg');
   background-repeat: repeat;
   background-position: right;
   background-size: 100% auto;
@@ -147,11 +206,38 @@ onBeforeUnmount(() => {
 }
 
 .video-el {
+  // position: absolute;
+  // inset: 0;
+  // width: 100%;
+  // height: 100%;
+  // object-fit: cover;
+
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  top: 50%;
+  left: 50%;
+  width: 177.78vh;  /* 100 * (16 / 9) → ensures coverage */
+  height: 100vh;
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* prevent clicking */
+}
+
+.video-toggle {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.video-toggle:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 .video-overlay {

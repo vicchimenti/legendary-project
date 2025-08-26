@@ -112,7 +112,7 @@ onMounted(async () => {
     Array.from(track.value?.querySelectorAll('img') ?? []).forEach(img => {
       img.addEventListener('load', () => ScrollTrigger.refresh(), { once: true })
     })
-  }, section)
+  }, section.value)
 })
 
 onBeforeUnmount(() => {

@@ -8,12 +8,7 @@ const header = ref(null)
 const year = new Date().getFullYear()
 
 onMounted(() => {
-  gsap.from(header.value, {
-    y: -40,
-    opacity: 0,
-    duration: 0.6,
-    ease: 'power3.out'
-  })
+
 })
 </script>
 <template>

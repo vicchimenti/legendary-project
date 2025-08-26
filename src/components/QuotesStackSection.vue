@@ -75,7 +75,7 @@ onMounted(async () => {
         }
       )
     })
-  }, section)
+  }, section.value)
 })
 
 onBeforeUnmount(() => {
