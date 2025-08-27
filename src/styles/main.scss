@@ -8,6 +8,34 @@
   --page-bg: #A00; 
   --Digital-SU-Red: #A00;
   --yellow: #FDB913;
+
+
+}
+.btn{
+  --bs-btn-font-family: Montserrat;
+  --bs-btn-bg:#A00; 
+  --bs-btn-color:#fff;
+  --bs-btn-active-bg:#A00;
+  --bs-btn-font-size:15px;
+  --bs-btn-font-weight:600;
+  --bs-border-width:0px;
+  --bs-btn-border-radius:3px;
+  --bs-btn-hover-bg:#700000;
+  --bs-btn-padding-y:12px;  
+  --bs-btn-padding-x:25px;  
+
+  --bs-btn-active-color:#fff;
+
+  &:hover, &:focus {
+    background: #700000;
+    color:white;
+  }
+
+  transition: transform .1s ease, background .1s ease;
+  &:active {  
+    transform: translateY(1px); 
+    color:white;
+  }
 }
 
 // Reset & global
@@ -29,4 +57,9 @@ body.bg-light {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+}
+
+
+.swiper-wrapper{
+  padding-top:100px;
 }

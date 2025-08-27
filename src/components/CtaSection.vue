@@ -241,32 +241,11 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   padding: .75rem 1.1rem;
-  border-radius: 999px;
-  font-weight: 700;
-  text-decoration: none;
-  border: 1px solid transparent;
-  transition: transform .12s ease, box-shadow .12s ease;
 
-  color: var(--White, #FFF);
-  font-feature-settings: 'liga' off, 'clig' off;
-  /* CTA */
-  font-family: Montserrat;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 20px; /* 133.333% */
-
-  &:hover, &:focus { box-shadow: 0 10px 26px rgba(0,0,0,.2); transform: translateY(-1px); }
-
-  &:active { transform: translateY(1px); }
+  
 }
 
-.btn--primary {
-  border-radius: 3px;
-  background: var(--Digital-SU-Red, #A00);
-  color:#fff;
-  &:hover { box-shadow: 0 10px 26px rgba(0,0,0,.2); }
-}
+
 
 
 

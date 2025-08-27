@@ -287,32 +287,11 @@ $accent: #e63946; /* Example accent color, replace with your brand color */
 
   .btn.btn-primary {
     display:inline-block;
-        width: auto;
+    width: auto;
     flex: 0 1 auto;
 
     padding: .75rem 1.1rem;
 
-
-    color: var(--White, #FFF);
-    text-align: center;
-    font-feature-settings: 'liga' off, 'clig' off;
-
-    /* CTA */
-    font-family: Montserrat;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px; /* 133.333% */
-
-    text-decoration: none;
-    border: transparent;
-    border-radius: 3px;
-    background: var(--Digital-SU-Red, #A00);
-
-
-
-    transition: transform .1s ease;
-    &:active { transform: translateY(1px); }
   }
 }
 </style>

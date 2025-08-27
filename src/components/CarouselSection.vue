@@ -2,44 +2,23 @@
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, Pagination, A11y } from 'swiper/modules'
+
 gsap.registerPlugin(ScrollTrigger)
 
+// Required Swiper styles (core + the modules you use)
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+
 const section = ref(null)
-const track = ref(null)
-const prevDisabled = ref(true)
-const nextDisabled = ref(false)
 
 let resizeObserver
-let slideWidth = 0
+
 
 let ctx
-
-const measureSlideWidth = () => {
-  const firstSlide = track.value?.querySelector('.slide')
-  if (!firstSlide) return
-  const styles = getComputedStyle(track.value)
-  const gap = parseFloat(styles.columnGap || styles.gap || '0')
-  slideWidth = firstSlide.getBoundingClientRect().width + gap
-}
-
-const syncButtons = () => {
-  const el = track.value
-  if (!el) return
-  const maxScrollLeft = el.scrollWidth - el.clientWidth - 1
-  prevDisabled.value = el.scrollLeft <= 0
-  nextDisabled.value = el.scrollLeft >= maxScrollLeft
-}
-
-const scrollBySlides = (n) => {
-  const el = track.value
-  if (!el || !slideWidth) return
-  el.scrollBy({ left: slideWidth * n, behavior: 'smooth' })
-}
-
-const onKey = (e) => {
-  if (e.key === 'ArrowRight') { e.preventDefault(); scrollBySlides(1) }
-  if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollBySlides(-1) }
-}
 
 const items = ref([
   {
@@ -63,61 +42,61 @@ const items = ref([
     desc: 'Projects Day showcases real-world projects from science and engineering students.',
     href: '#'
   },
+    {
+    img: 'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600&auto=format&fit=crop',
+    alt: 'Bridging Education and Industry Innovation',
+    title: 'Bridging Education and Industry Innovation',
+    desc: 'Projects Day showcases real-world projects from science and engineering students.',
+    href: '#'
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600&auto=format&fit=crop',
+    alt: 'Bridging Education and Industry Innovation',
+    title: 'Bridging Education and Industry Innovation',
+    desc: 'Projects Day showcases real-world projects from science and engineering students.',
+    href: '#'
+  },
 ])
 
 
 onMounted(async () => {
   await nextTick()
 
-  measureSlideWidth()
-  syncButtons()
 
-  track.value?.addEventListener('scroll', syncButtons, { passive: true })
-  window.addEventListener('resize', measureSlideWidth)
 
-  resizeObserver = new ResizeObserver(() => {
-    measureSlideWidth()
-    syncButtons()
-    ScrollTrigger.refresh()
-  })
-  if (track.value) resizeObserver.observe(track.value)
+  const all = gsap.utils.toArray('.legendary-swiper .swiper-slide:not(.swiper-slide-duplicate) .slide')
+  gsap.set(all, { opacity: 0, y: 24 })
 
   ctx = gsap.context(() => {
-    const q = gsap.utils.selector(section.value)
-    const heading  = q('.section-heading')
-    const controls = q('.controls')
-    const slides   = q('.slide')
-
-    gsap.set([heading, controls, slides], { opacity: 0, y: 20 })
-
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: section.value,
-        start: 'top 70%',
-        toggleActions: 'play none none reverse',
-
-      }
+    // Animate only the currently visible slides the first time the section enters the viewport
+    ScrollTrigger.create({
+      trigger: '.legendary-swiper',
+      start: 'top 80%',
+      once: true,
+      onEnter: () => animateVisibleSlides(),
     })
-    .to(heading,  { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' })
-    .to(controls, { opacity: 1, y: 0, duration: 0.30, ease: 'power2.out' }, '-=0.15')
-    .to(slides, {
-      opacity: 1,
-      y: 0,
-      duration: 0.5,
-      ease: 'power2.out',
-      stagger: { each: 0.12, from: 'start', grid: 'auto' }, // left→right
-      clearProps: 'transform,opacity'
-    }, '-=0.1')
-
-    Array.from(track.value?.querySelectorAll('img') ?? []).forEach(img => {
-      img.addEventListener('load', () => ScrollTrigger.refresh(), { once: true })
-    })
-  }, section.value)
+  })
 })
 
+function animateVisibleSlides() {
+  // Select only the visible slides' inner content (your .slide article)
+  const cards = gsap.utils.toArray('.legendary-swiper .slide')
+  if (!cards.length) return
+
+  // Clear inline styles if rerun defensively
+  gsap.set(cards, { clearProps: 'all' })
+
+  gsap.from(cards, {
+    opacity: 0,
+    y: 30,
+    duration: 0.6,
+    ease: 'power2.out',
+    stagger: 0.2,
+  })
+}
+
 onBeforeUnmount(() => {
-  track.value?.removeEventListener('scroll', syncButtons)
-  window.removeEventListener('resize', measureSlideWidth)
+
   resizeObserver?.disconnect()
   ctx?.revert() // cleans up tweens + ScrollTriggers created in this context
 })
@@ -133,38 +112,53 @@ onBeforeUnmount(() => {
       </div>
 
 
-      <div class="controls">
-        <button class="nav-btn" :disabled="prevDisabled" @click="scrollBySlides(-1)" aria-label="Previous">
-          ‹
-        </button>
-        <button class="nav-btn" :disabled="nextDisabled" @click="scrollBySlides(1)" aria-label="Next">
-          ›
-        </button>
+      <div class="carousel-container">
+
+      
+        <div class="carousel-nav">
+          <button class="swiper-button-prev" aria-label="Previous Slide"></button>
+          <button class="swiper-button-next" aria-label="Next Slide"></button>
+        </div>
+
+        <Swiper
+          class="legendary-swiper"
+          :modules="[Navigation, Pagination, A11y]"
+          :slides-per-view="1.15"
+          :space-between="16"
+          :loop="true"
+          :navigation="{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }"
+          :a11y="{ enabled: true, prevSlideMessage: 'Previous', nextSlideMessage: 'Next' }"
+          :breakpoints="{
+            768: { slidesPerView: 2, spaceBetween: 20 },
+            1024:{ slidesPerView: 3, spaceBetween: 24 }
+          }"
+        >
+          <SwiperSlide
+            v-for="(item, i) in items"
+            :key="i"
+            ><article class="slide">
+              
+                <img class="slide-img" :src="item.img" :alt="item.alt" loading="lazy" decoding="async" />
+                  <div class="slide-card">
+                    <h3 class="slide-title">{{ item.title }}</h3>
+                    <p class="slide-desc">{{ item.desc }}</p>
+                    <div class="slide-link-holder">
+                      <a class="slide-link" :href="item.href">Learn more →</a>
+                    </div>
+                  </div>
+
+            </article>
+          
+          </SwiperSlide>
+
+        </Swiper>
+
       </div>
 
-      <div
-        class="track"
-        ref="track"
-        tabindex="0"
-        aria-label="Carousel"
-        role="region"
-        @keydown="onKey"
-      >
-        <article
-          v-for="(item, i) in items"
-          :key="i"
-          class="slide"
-        >
-          <img class="slide-img" :src="item.img" :alt="item.alt" loading="lazy" decoding="async" />
-          <div class="slide-card">
-            <h3 class="slide-title">{{ item.title }}</h3>
-            <p class="slide-desc">{{ item.desc }}</p>
-            <div class="slide-link-holder">
-              <a class="slide-link" :href="item.href">Learn more →</a>
-            </div>
-          </div>
-        </article>
+      <div class="button-bar mt-5  text-center">
+        <a href="#" class="btn btn-primary" role="button">Read More Legendary Stories</a>
       </div>
+
     </div>
   </section>
 </template>
@@ -173,8 +167,7 @@ onBeforeUnmount(() => {
 /* Section with white background */
 .carousel-section {
   background: #ffffff;
-  padding: 100px 0;
-
+  padding:100px 0;
 }
 
 .section-heading {
@@ -183,6 +176,8 @@ onBeforeUnmount(() => {
 
   max-width:700px;
   margin: 0 auto;
+
+  margin-bottom:50px;
 
   .section-subtitle {
     color: var(--Black, #000);
@@ -212,38 +207,78 @@ onBeforeUnmount(() => {
 
 }
 
-/* Controls */
-.controls {
+
+.carousel-container{
+  position: relative;
+}
+//swiper
+
+.swiper-button-prev,
+.swiper-button-next{
+
+  --swiper-navigation-size: 48px;
+  --swiper-navigation-color: #fff;
+  --swiper-navigation-size:20px;
+  --swiper-navigation-sides-offset:-20px;
   display: flex;
-  justify-content: flex-end;
-  gap: .5rem;
-  margin-bottom: .75rem;
+  width: 48px;
+  height: 48px;
+  padding: 12px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius: 4px;
+  background: var(--Digital-SU-Red, #A00);
+  border:none;
+
+
+  transition: transform .1s ease, background .1s ease;
+
+  &:hover, &:focus {
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
+    background: #700000;
+    color:white;
+  }
+
+  &:active {  
+    transform: translateY(1px); 
+    color:white;
+  }
+
+}
+.swiper-button-prev{
+
+}
+.swiper-button-next{
+
 }
 
-.nav-btn {
-  width: 40px; height: 40px;
-  border-radius: 999px;
-  border: 1px solid rgba(0,0,0,.15);
-  background: #fff;
-  font-size: 1.25rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: background .15s ease, box-shadow .15s ease, transform .1s ease;
-  &:hover:not(:disabled) { background: #f3f4f6; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
-  &:active:not(:disabled) { transform: translateY(1px); }
-  &:disabled { opacity: .4; cursor: not-allowed; }
+.swiper-slide{
+  height: 100%;
+
+  &:nth-child(even){
+    margin-top:-70px;
+    .slide {
+      flex-direction: column-reverse;
+      .slide-img {
+        height:675px;
+      }
+    }
+  }
+
+  .slide{
+    display:flex;
+    flex-direction: column;
+  }
+
+
+  &:hover{
+    .slide-img {
+      transform: scale(1.05);
+    }
+  } 
 }
 
-/* Track */
-.track {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding-left: 2rem; /* align first slide nicely */
-  padding-bottom: .5rem;
-  -webkit-overflow-scrolling: touch; /* smooth on iOS */
-}
 
 /* Slides (1 on mobile, 2 on tablet, 3 on desktop) */
 .slide {
@@ -258,10 +293,12 @@ onBeforeUnmount(() => {
 
 .slide-img {
   width: 100%;
-  height: clamp(180px, 24vw, 240px);
+  height: 480px;
+  
   object-fit: cover;
   display: block;
   background: #e5e7eb;
+  transition: transform 0.3s ease;
 }
 
 /* Red box below image */
