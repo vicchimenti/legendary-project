@@ -156,7 +156,7 @@ onBeforeUnmount(() => {
       
       flex-direction: column;
       grid-gap:20px;
-      top: -2px !important;
+      top: -4px !important;
       &.show{
         display:flex;
       }

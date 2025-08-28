@@ -172,12 +172,31 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 .video-section {
   padding: 0rem 0 0rem;
-  background:
-    linear-gradient(to bottom, var(--page-bg) 0 50%, transparent 50% 100%),
-    url('../assets/images/TEXTURE-BG_2300.jpg');
+  background:var(--page-bg);
   background-repeat: repeat;
   background-position: right;
   background-size: 100% auto;
+
+  position: relative;
+
+  &:after{
+    content:'';
+    position: absolute;
+    inset: 0;
+    background:  url('../assets/images/TEXTURE-BG_2300.jpg');
+    background-size: 100% auto;
+    width: 100%;
+    height: 50%;
+    bottom: 0px;
+    left: 0px;
+    top: unset;
+    z-index: 1;
+  }
+
+  .video-section-inner{
+    position: relative;
+    z-index: 2;
+  }
 }
 
 .video-wrap {

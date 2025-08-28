@@ -129,7 +129,7 @@ onBeforeUnmount(() => {
 .cta-alt {
   background: #f5f7fa;
   padding: 6rem 0;
-
+  overflow: hidden;
   .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
 
 
@@ -201,6 +201,11 @@ onBeforeUnmount(() => {
     line-height: 170%; /* 30.6px */
     margin-bottom:8px;
     text-transform: uppercase;
+
+    @include media-breakpoint-down(md) {
+      font-size: 14px;
+      line-height: 170%;
+    }
   }
   .cta-title {
     color: var(--Digital-SU-Red, #A00);
@@ -216,6 +221,10 @@ onBeforeUnmount(() => {
     margin-bottom:8px;
     margin-bottom: 8px;
     margin-top: 0px;
+    @include media-breakpoint-down(md) {  
+      font-size: 32px;
+      line-height: 36px;
+    }
   }
 
   .cta-desc {
@@ -228,6 +237,11 @@ onBeforeUnmount(() => {
     font-style: normal;
     font-weight: 500;
     line-height: 160%; /* 25.6px */
+
+    @include media-breakpoint-down(md) {
+      font-size: 15px;
+      line-height: 26px;
+    }
   }
 
   .cta-actions {
@@ -241,7 +255,9 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   padding: .75rem 1.1rem;
-
+  @include media-breakpoint-down(md) {
+    font-size: 15px;
+  }
   
 }
 

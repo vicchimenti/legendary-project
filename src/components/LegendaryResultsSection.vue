@@ -179,7 +179,8 @@ onBeforeUnmount(() => {
     font-weight: 700;
     line-height: 170%; /* 30.6px */
     @include media-breakpoint-down(md) {
-    
+      font-size: 14px;
+      line-height: 170%;
     }
   }
 
@@ -195,6 +196,11 @@ onBeforeUnmount(() => {
     line-height: 70px; /* 112.903% */
     text-transform: uppercase;
     max-width:465px;
+    @include media-breakpoint-down(md) {
+      font-size: 32px;
+
+      line-height: 36px;
+    }
   }
 }
 
@@ -217,7 +223,7 @@ onBeforeUnmount(() => {
     padding: 40px 0px 0px 70px;
 
     @include media-breakpoint-down(md) {
-      padding:0px;
+      padding: 0px 10px;
     }
   }
 
@@ -258,6 +264,10 @@ onBeforeUnmount(() => {
     font-style: normal;
     font-weight: 200;
     line-height: 150%; /* 168px */
+
+    @include media-breakpoint-down(md) {
+
+    }
   }
   .stat-title {
     color: var(--White, #FFF);
@@ -268,6 +278,10 @@ onBeforeUnmount(() => {
     font-style: normal;
     font-weight: 700;
     line-height: 140%; /* 29.4px */
+
+      @include media-breakpoint-down(md) {
+
+    }
   }
   .stat-desc {
     color: var(--White, #FFF);
@@ -279,6 +293,12 @@ onBeforeUnmount(() => {
     font-style: normal;
     font-weight: 500;
     line-height: 160%; /* 25.6px */
+
+    @include media-breakpoint-down(md) {
+      font-size: 17px;
+
+      line-height: 150%;
+    }
   }
 }
 </style>

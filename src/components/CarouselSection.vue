@@ -115,10 +115,6 @@ onBeforeUnmount(() => {
       <div class="carousel-container">
 
       
-        <div class="carousel-nav">
-          <button class="swiper-button-prev" aria-label="Previous Slide"></button>
-          <button class="swiper-button-next" aria-label="Next Slide"></button>
-        </div>
 
         <Swiper
           class="legendary-swiper"
@@ -138,20 +134,28 @@ onBeforeUnmount(() => {
             :key="i"
             ><article class="slide">
               
+              <div class="slide-img-holder">
                 <img class="slide-img" :src="item.img" :alt="item.alt" loading="lazy" decoding="async" />
-                  <div class="slide-card">
-                    <h3 class="slide-title">{{ item.title }}</h3>
-                    <p class="slide-desc">{{ item.desc }}</p>
-                    <div class="slide-link-holder">
-                      <a class="slide-link" :href="item.href">Learn more →</a>
-                    </div>
-                  </div>
+              </div>  
+              <div class="slide-card">
+                <h3 class="slide-title">{{ item.title }}</h3>
+                <p class="slide-desc">{{ item.desc }}</p>
+                <div class="slide-link-holder">
+                  <a class="slide-link" :href="item.href">Learn more →</a>
+                </div>
+              </div>
 
             </article>
           
           </SwiperSlide>
 
         </Swiper>
+
+        <div class="carousel-nav">
+          <button class="swiper-button-prev" aria-label="Previous Slide"></button>
+          <button class="swiper-button-next" aria-label="Next Slide"></button>
+        </div>
+
 
       </div>
 
@@ -190,6 +194,10 @@ onBeforeUnmount(() => {
     font-style: normal;
     font-weight: 700;
     line-height: 170%; /* 30.6px */
+
+    @include media-breakpoint-down(md) {
+      font-size: 14px;
+    }
   }
   h2{
     color: var(--Black, #000);
@@ -203,6 +211,11 @@ onBeforeUnmount(() => {
     font-weight: 700;
     line-height: 70px; /* 112.903% */
     text-transform: uppercase;
+
+    @include media-breakpoint-down(md) {
+      font-size: 32px;
+      line-height: 36px;
+    }
   }
 
 }
@@ -213,6 +226,17 @@ onBeforeUnmount(() => {
 }
 //swiper
 
+.carousel-nav{
+  @include media-breakpoint-down(md) {
+    position: relative;
+    bottom: 0px;
+    left: 20px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    height: 40px;
+  }
+}
 .swiper-button-prev,
 .swiper-button-next{
 
@@ -250,18 +274,27 @@ onBeforeUnmount(() => {
 
 }
 .swiper-button-next{
-
+  @include media-breakpoint-down(md) {
+    right: unset;
+    left: 40px;
+  }
 }
 
 .swiper-slide{
   height: 100%;
 
   &:nth-child(even){
-    margin-top:-70px;
+    @include media-breakpoint-up(md) {
+      margin-top:-70px;
+    }
     .slide {
-      flex-direction: column-reverse;
+      @include media-breakpoint-up(md) {
+        flex-direction: column-reverse;
+      }
       .slide-img {
-        height:675px;
+        @include media-breakpoint-up(md) {
+          height:675px;
+        }
       }
     }
   }
@@ -291,14 +324,23 @@ onBeforeUnmount(() => {
   @media (min-width: 1024px) { flex-basis: calc(33.3333% - .6667rem); } /* compensate gap a bit */
 }
 
-.slide-img {
-  width: 100%;
+.slide-img-holder{
   height: 480px;
-  
-  object-fit: cover;
-  display: block;
-  background: #e5e7eb;
-  transition: transform 0.3s ease;
+  overflow: hidden;
+  @include media-breakpoint-down(md) {
+    height: 337px!important;
+  }
+  .slide-img {
+    width: 100%;
+    height: 100%;
+    
+    object-fit: cover;
+    display: block;
+    background: #e5e7eb;
+    transition: transform 0.3s ease;
+
+
+  }
 }
 
 /* Red box below image */
@@ -324,6 +366,11 @@ onBeforeUnmount(() => {
     font-weight: 700;
     line-height: 34px; /* 121.429% */
     margin-bottom:0px;
+
+    @include media-breakpoint-down(md) {
+      font-size: 21px;
+      line-height: 140%;
+    }
   }
 
   .slide-desc {
@@ -338,6 +385,11 @@ onBeforeUnmount(() => {
     font-weight: 500;
     line-height: 160%; /* 25.6px */
     margin-bottom:0px;
+
+    @include media-breakpoint-down(md) {
+      font-size: 15px;
+      line-height: 26px; 
+    }
   }
   .slide-link-holder{
     display:flex;
@@ -355,9 +407,25 @@ onBeforeUnmount(() => {
     border-bottom:1px solid #fff;
     text-decoration: none;
     &:hover { border-color: #fff; opacity: 0.95; }
+
+    @include media-breakpoint-down(md) {
+      font-size: 16px;
+
+      line-height: 125%;
+      
+    }
   }
 
 }
+
+.button-bar{
+  a{
+    @include media-breakpoint-down(md) {
+      width:100%;
+    }
+  }
+}
+
 
 
 </style>

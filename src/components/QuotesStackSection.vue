@@ -135,6 +135,9 @@ onBeforeUnmount(() => {
   list-style:none;
 
   @media (min-width: 960px) { gap: 4.5rem; }
+  @include media-breakpoint-down(md) {
+    padding:0px;
+  }
 }
 
 /* A single quote row */
@@ -143,6 +146,10 @@ onBeforeUnmount(() => {
   opacity: .35;
   transition: opacity .25s linear, transform .25s ease;
   will-change: transform, opacity;
+
+  @include media-breakpoint-down(md) {
+    margin-bottom:50px;
+  }
 
   &.is-active { opacity: 1; }
 
@@ -159,6 +166,11 @@ onBeforeUnmount(() => {
     transition: opacity .2s ease, transform .25s ease;
     width: 91px;
     height: 71px;
+
+    @include media-breakpoint-down(md) {
+      width: 64px;
+      height: 50px;
+    }
     svg{
 
       path{
@@ -173,12 +185,21 @@ onBeforeUnmount(() => {
     left: -105px;
     top: -70px;
     transform: translateY(-6px);
+
+    @include media-breakpoint-down(md) {
+      left: 0px;
+      top: -55px;
+    }
   }
 
   .quote-close{
     right: -105px;
     bottom: -10px;
     transform: translateY(-6px);
+
+    @include media-breakpoint-down(md) {
+      display:none;
+    }
   }
   
   &.is-active{
@@ -211,42 +232,11 @@ onBeforeUnmount(() => {
   font-style: normal;
   font-weight: 700;
   line-height: 34px; /* 121.429% */
+  @include media-breakpoint-down(md) {
+    font-size: 21px;
 
-  /* Big framing quotation marks only when active */
-  // &::before,
-  // &::after {
-  //   content: "";
-  //   position: absolute;
-  //   inset: 0;
-  //   pointer-events: none;
-  //   opacity: 0;
-  //   transition: opacity .2s ease, transform .25s ease;
-  // }
-
-
-
-
-  // /* stylized quotes using pseudo elements */
-  // .is-active &::before {
-  //   content: "“";
-  //   left: -0.55em;
-  //   top: -0.25em;
-  //   font-size: clamp(3rem, 10vw, 5.5rem);
-  //   color: rgba(200, 30, 30, 0.18); /* soft red tint */
-  //   opacity: 1;
-  //   transform: translateY(-6px);
-  // }
-
-  // .is-active &::after {
-  //   content: "”";
-  //   right: -0.4em;
-  //   bottom: -0.6em;
-  //   font-size: clamp(3rem, 10vw, 5.5rem);
-  //   color: rgba(200, 30, 30, 0.18);
-  //   opacity: 1;
-  //   transform: translateY(6px);
-  // }
-
+    line-height: 140%;
+  }
 
 }
 
@@ -258,6 +248,12 @@ onBeforeUnmount(() => {
   font-style: normal;
   font-weight: 700;
   line-height: 28px; /* 155.556% */
+
+  @include media-breakpoint-down(md) {
+    font-size: 18px;
+
+    line-height: 28px;
+  }
 }
 
 /* Accessibility helper */
