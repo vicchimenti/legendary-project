@@ -122,6 +122,7 @@ onBeforeUnmount(() => {
           :slides-per-view="1.15"
           :space-between="16"
           :loop="true"
+      
           :navigation="{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }"
           :a11y="{ enabled: true, prevSlideMessage: 'Previous', nextSlideMessage: 'Next' }"
           :breakpoints="{
@@ -281,33 +282,24 @@ onBeforeUnmount(() => {
 }
 
 .swiper-slide{
-  height: 100%;
-
-  &:nth-child(even){
-    @include media-breakpoint-up(md) {
-      margin-top:-70px;
-    }
-    .slide {
-      @include media-breakpoint-up(md) {
-        flex-direction: column-reverse;
-      }
-      .slide-img {
-        @include media-breakpoint-up(md) {
-          height:675px;
-        }
-      }
-    }
-  }
-
+  // height: 100%;
+  height: auto;
+  transition:all .2s ease-in-out;
   .slide{
     display:flex;
     flex-direction: column;
+    height: 100%;
+
   }
 
 
   &:hover{
+    transform: translateY(-60px);
     .slide-img {
-      transform: scale(1.05);
+      transform: scale(1.1);
+    }
+    .slide-card{
+      background:#700000;
     }
   } 
 }
@@ -326,6 +318,7 @@ onBeforeUnmount(() => {
 
 .slide-img-holder{
   height: 480px;
+  flex: 1 0 480px;
   overflow: hidden;
   @include media-breakpoint-down(md) {
     height: 337px!important;
@@ -353,7 +346,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   gap: 16px;
   height: 100%;
-
+  transition: transform 0.3s ease;
   .slide-title {
     color: var(--White, #FFF);
     text-align: center;

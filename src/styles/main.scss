@@ -65,4 +65,9 @@ body.bg-light {
   @include media-breakpoint-down(md) {
     padding-top:0px;
   }
+
+  .swiper-slide{
+    height: auto;
+    align-self: stretch;
+  }
 }

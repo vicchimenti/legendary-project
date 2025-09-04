@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 import VideoIcon from '../assets/images/circle-play-solid-full.svg'
 import Close from '../assets/images/CLOSE.svg'
+import VideoPlaceholder from '../assets/images/VideoPlaceholder.avif'
 
 const section = ref(null)
 let ctx
@@ -111,7 +112,10 @@ onBeforeUnmount(() => {
 
         
         <div class="video-wrap">
-          <div class="video-box">
+          <div 
+            class="video-box" 
+            :style="{ backgroundImage: `url(${VideoPlaceholder})` }"
+          >
 
 
             <iframe
@@ -210,7 +214,7 @@ onBeforeUnmount(() => {
   aspect-ratio: 232/97;
 
   overflow: hidden;
-
+  background-size: 100%;
 
 
   &:before{
