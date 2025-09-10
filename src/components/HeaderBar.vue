@@ -1,6 +1,9 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { gsap } from 'gsap'
+import { useUiStore } from '../stores/ui'
+const ui = useUiStore()
+
 import Dropdown from 'bootstrap/js/dist/dropdown'
 
 import DesktopLogo from '../assets/images/Desktop_Logo.svg'
@@ -34,7 +37,7 @@ onBeforeUnmount(() => {
 
 <template>
   <!-- add class when open -->
-  <header ref="headerEl" :class="['header', { 'menu-open': isOpen }]">
+  <header v-show="ui.headerVisible" ref="headerEl" :class="['header', { 'menu-open': isOpen }]">
     <div class="container d-flex justify-content-between align-items-center">
       <div class="logo-container">
         <DesktopLogo class="logo d-none d-md-block" alt="Seattle University Logo" />
@@ -71,7 +74,8 @@ onBeforeUnmount(() => {
 .header {
   padding:0;
   z-index: 1;
-  position: relative;
+  position: absolute;
+  width: 100%;
   >.container{
     padding:0px;
   }
