@@ -37,7 +37,12 @@ onBeforeUnmount(() => {
 
 <template>
   <!-- add class when open -->
-  <header v-show="ui.headerVisible" ref="headerEl" :class="['header', { 'menu-open': isOpen }]">
+  <header
+  v-show="ui.headerVisible"
+  ref="headerEl"
+  :class="['header', { 'menu-open': isOpen }]"
+  :style="{ opacity: ui.headerVisible ? 1 : 0 }"
+>
     <div class="container d-flex justify-content-between align-items-center">
       <div class="logo-container">
         <DesktopLogo class="logo d-none d-md-block" alt="Seattle University Logo" />
@@ -73,7 +78,7 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 .header {
   padding:0;
-  z-index: 1;
+  z-index: 2;
   position: absolute;
   width: 100%;
   >.container{

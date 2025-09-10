@@ -82,7 +82,7 @@ async function tryAutoplayOnce() {
   //  trigger fade 2s before video ends
   const handler = () => {
     if (videoDone.value || !el.duration) return
-    if (el.currentTime >= el.duration - 2) {
+    if (el.currentTime >= el.duration - 1.6) {
       showHeaderEarly()
       fadeInHero()
       el.removeEventListener("timeupdate", handler)
@@ -185,7 +185,7 @@ onBeforeUnmount(() => {
     </video>
 
     <!-- OUTER: gets “fit” scaling -->
-    <div class="hero-title" ref="titleWrap">
+    <div class="hero-title" ref="titleWrap" style="opacity:0;">
       <!-- INNER: gets scroll trigger GSAP scale -->
       <div class="hero-title-inner" ref="titleInner">
         <Bird aria-hidden="true" focusable="false" class="bird-icon" />
