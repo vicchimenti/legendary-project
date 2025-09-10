@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 import VideoIcon from '../assets/images/circle-play-solid-full.svg'
 import Close from '../assets/images/CLOSE.svg'
-import VideoPlaceholder from '../assets/images/VideoPlaceholder.avif'
+import VideoPlaceholder from '../assets/images/VideoPlaceholder.jpg'
 
 const section = ref(null)
 let ctx

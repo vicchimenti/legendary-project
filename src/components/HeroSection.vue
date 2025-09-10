@@ -15,7 +15,7 @@ const videoDone = ref(false)
 let ctx
 let ro // ResizeObserver
 
-import HeroVideoPlaceholder from '../assets/images/HeroVideoPlaceholder.avif'
+import HeroVideoPlaceholder from '../assets/images/HeroVideoPlaceholder.jpg'
 import HeroVideo from '../assets/videos/BeLegendaryIntroVideo.mp4'
 
 // NOTE: Bird.svg must be handled by vite-svg-loader (import-as-component).
