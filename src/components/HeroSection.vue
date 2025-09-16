@@ -12,6 +12,10 @@ const titleInner = ref(null)  // inner: scroll scale
 const videoEl = ref(null)
 const videoDone = ref(false)
 
+const section = ref(null)
+const downBtn = ref(null)
+const showArrow = ref(false)
+
 let ctx
 let ro // ResizeObserver
 
@@ -49,7 +53,7 @@ function endVideo() {
   videoDone.value = true
   fadeInHero()
   showHeaderEarly()
-  
+
   // extra cleanup to free memory on some browsers
   const el = videoEl.value
   if (el) {
@@ -85,6 +89,7 @@ async function tryAutoplayOnce() {
     if (el.currentTime >= el.duration - 1.6) {
       showHeaderEarly()
       fadeInHero()
+      showArrow.value = true
       el.removeEventListener("timeupdate", handler)
     }
   }
@@ -98,6 +103,16 @@ async function tryAutoplayOnce() {
       endVideo()
     }
   }, 400)
+}
+
+const scrollToNextSection = () => {
+  const current = section.value
+  if (!current) return
+  const next = current.nextElementSibling
+  if (!next) return
+
+  // Smooth native scroll (no extra plugins needed)
+  next.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 onMounted(async () => {
@@ -152,6 +167,24 @@ onMounted(async () => {
   } else {
     endVideo()
   }
+
+
+  const prefersReduced =
+    window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  if (prefersReduced) {
+    // Respect reduced motion: show it, no animation
+    if (downBtn.value) {
+      downBtn.value.style.opacity = 1
+      downBtn.value.style.transform = 'translateY(0)'
+    }
+    return
+  }
+
+
+
+
 })
 
 onBeforeUnmount(() => {
@@ -167,7 +200,11 @@ onBeforeUnmount(() => {
 
 <template>
   <!-- Add a toggling class when the video is finished -->
-  <section class="hero" :class="{ 'video-done': videoDone }" aria-label="Be Legendary hero">
+  <section 
+    class="hero" 
+    :class="{ 'video-done': videoDone }" 
+    aria-label="Be Legendary hero"
+    ref="section">
     <!-- Full-screen background video; disappears after first play -->
     <video
       v-if="!videoDone"
@@ -194,15 +231,19 @@ onBeforeUnmount(() => {
     </div>
 
     <div class="button-strip">
-      <button>
-        <svg width="100px" height="100px" viewBox="0 0 65 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <title>HERO-SCROLL-DOWN</title>
-        <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-            <g id="00-HOME" transform="translate(-688.000000, -920.000000)" stroke="#FFFFFF" stroke-width="5">
-                <polyline id="HERO-SCROLL-DOWN" points="691 923.022278 720.488665 952 750 923"></polyline>
-            </g>
-        </g>
-        </svg>
+      <button
+        class="down-btn"
+        :class="{ 'is-visible': showArrow }"
+        ref="downBtn"
+        type="button"
+        aria-label="Scroll to next section"
+        @click="scrollToNextSection"
+        >
+        <div class="inner">
+          <svg xmlns="http://www.w3.org/2000/svg" width="54" height="30" viewBox="0 0 54 30" fill="none">
+          <path d="M53.7402 2.87006L26.8701 29.7401L5.99623e-05 2.87006L2.82849 0.0416301L26.8701 24.0833L50.9117 0.0416301L53.7402 2.87006Z" fill="white"/>
+          </svg>
+        </div>
       </button>
     </div>
   </section>
@@ -288,16 +329,49 @@ onBeforeUnmount(() => {
   }
 }
 
-.button-strip{
-  width:100%;
-  position:absolute;
-  bottom:200px;
-  left:0px;
+/* Centered at bottom */
+.button-strip {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  // pointer-events: none; /* prevents stray clicks outside the button */
+}
 
-  button{
-    border: 0px;
-    background: 0px;
-    opacity: .5;
+.down-btn {
+  background:none;
+  border:none;
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+
+  height: 100px;
+}
+
+/* initial fade+slide in */
+.down-btn.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  
+
+  .inner{
+    animation: arrowFall 1.2s ease-in-out infinite;
+  }
+}
+
+@keyframes arrowFall {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0;
   }
 }
 </style>

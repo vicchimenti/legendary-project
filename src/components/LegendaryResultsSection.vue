@@ -126,6 +126,10 @@ onBeforeUnmount(() => {
     position: relative;
     height: 100%;
 
+    @include media-breakpoint-down(md) {
+      padding:0px;
+    }
+
   }
 }
 
@@ -207,8 +211,8 @@ onBeforeUnmount(() => {
 
 .legendary-stats {
   position: relative;
-  background: var(--Digital-SU-Red); 
-  color: #fff;
+  background: var(--White, #FFF);
+  color: var(--Digital-SU-Red);
 
 
   margin-top: -150px;
@@ -220,10 +224,10 @@ onBeforeUnmount(() => {
     margin-top: 0px !important;
   }
   .inner{
-    padding: 40px 0px 0px 70px;
+    padding: 40px 0px 60px 70px;
 
     @include media-breakpoint-down(md) {
-      padding: 0px 10px;
+      padding: 0px 30px 40px 30px;
     }
   }
 
@@ -238,7 +242,7 @@ onBeforeUnmount(() => {
     width:50vw;
     left:50%;
     height: 100%;
-    background-color: var(--Digital-SU-Red);
+    background-color: var(--White, #FFF);
     z-index: -1;
   }
 }
@@ -258,11 +262,10 @@ onBeforeUnmount(() => {
 
 .stat {
   .stat-value {
-    color: var(--White, #FFF);
+    color: var(--Digital-SU-Red);
     font-family: "Roboto Slab";
     font-size: 112px;
-    font-style: normal;
-    font-weight: 200;
+    font-weight: 700;
     line-height: 150%; /* 168px */
 
     @include media-breakpoint-down(md) {
@@ -270,7 +273,7 @@ onBeforeUnmount(() => {
     }
   }
   .stat-title {
-    color: var(--White, #FFF);
+    color: var(--Digital-SU-Red);
 
     /* Mobile/H4/Regular */
     font-family: Montserrat;
@@ -284,7 +287,7 @@ onBeforeUnmount(() => {
     }
   }
   .stat-desc {
-    color: var(--White, #FFF);
+    color: var(--Digital-SU-Red);
     font-feature-settings: 'liga' off, 'clig' off;
 
     /* Body 16 */
