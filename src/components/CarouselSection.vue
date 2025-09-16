@@ -15,6 +15,13 @@ import 'swiper/css/pagination'
 
 const section = ref(null)
 
+
+import UMITANI_Image from '../assets/images/UMITANI-2x.jpg'
+import SKUBAL_Image from '../assets/images/SKUBAL-2x.jpg'
+import OBRIEN_Image from '../assets/images/OBRIEN-2x.jpg'
+import CONRAD_Image from '../assets/images/CONRAD-2x.jpg'
+import BAYLOR_Image from '../assets/images/BAYLOR-2x.jpg'
+
 let resizeObserver
 
 
@@ -22,39 +29,39 @@ let ctx
 
 const items = ref([
   {
-    img: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=1600&auto=format&fit=crop',
-    alt: 'SU Baseball Start Headed to All-Star Game',
-    title: 'SU Baseball Start Headed to All-Star Game',
-    desc: 'Albers graduate and Cy Young winner Tarik Skubal, ’18 selected to the MLB Midsummer Classic.',
-    href: '#'
+    img: BAYLOR_Image,
+    alt: 'Elgin Baylor’s Lasting Legacy',
+    title: 'Elgin Baylor’s Lasting Legacy',
+    desc: 'Basketball star led Seattle University to 1958 NCAA title game en route to a legendary career.',
+    href: 'https://www.seattleu.edu/newsroom/2025/elgin-baylors-lasting-legacy.php'
   },
   {
-    img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop',
-    alt: 'A Rising Star',
-    title: 'A Rising Star',
-    desc: 'Alum Shasti Conrad, ’07, named new Vice Chair of the Democratic National Committee.',
-    href: '#'
+    img: OBRIEN_Image,
+    alt: 'O’Brien Name Continues to Resonate',
+    title: 'O’Brien Name Continues to Resonate',
+    desc: 'Twins Johnny and Eddie made their marks on the basketball court and baseball diamond',
+    href: 'https://www.seattleu.edu/newsroom/2025/obrien-name-continues-to-resonate.php'
   },
   {
-    img: 'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600&auto=format&fit=crop',
-    alt: 'Bridging Education and Industry Innovation',
-    title: 'Bridging Education and Industry Innovation',
-    desc: 'Projects Day showcases real-world projects from science and engineering students.',
-    href: '#'
+    img: CONRAD_Image,
+    alt: 'Conrad Named DNC Leader',
+    title: 'Conrad Named DNC Leader',
+    desc: 'Shasti Conrad takes another leadership step, named Vice Chair of Democratic National Committee',
+    href: 'https://www.seattleu.edu/newsroom/2025/a-rising-star.php'
   },
     {
-    img: 'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600&auto=format&fit=crop',
-    alt: 'Bridging Education and Industry Innovation',
-    title: 'Bridging Education and Industry Innovation',
-    desc: 'Projects Day showcases real-world projects from science and engineering students.',
-    href: '#'
+    img: SKUBAL_Image,
+    alt: 'Skubal’s Star Began Rise At SU',
+    title: 'Skubal’s Star Began Rise At SU',
+    desc: 'Cy Young winner Tarik Skubal’s road from unknown to baseball greatness started with the Redhawks',
+    href: 'https://www.seattleu.edu/newsroom/2024/from-the-redhawks-to-the-cy-young-.php'
   },
   {
-    img: 'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600&auto=format&fit=crop',
-    alt: 'Bridging Education and Industry Innovation',
-    title: 'Bridging Education and Industry Innovation',
-    desc: 'Projects Day showcases real-world projects from science and engineering students.',
-    href: '#'
+    img: UMITANI_Image,
+    alt: 'Umitani Named 2025 Truman Scholar',
+    title: 'Umitani Named 2025 Truman Scholar',
+    desc: 'A double major in economics and public affairs, Naho Umitani recognized for public service leadership.',
+    href: 'https://www.seattleu.edu/newsroom/2025/a-future-in-public-service.php'
   },
 ])
 
