@@ -13,32 +13,28 @@ let ctx
 onMounted(async () => {
   await nextTick()
 
-  ctx = gsap.context(() => {
-    const q = gsap.utils.selector(section.value)
-    const cards = q('.feature-card')
+ctx = gsap.context(() => {
+  const cards = gsap.utils.toArray('.feature-card', section.value)
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: section.value,
-        start: 'top 40%',
-        toggleActions: 'play none none reverse',
-        // markers: true,
-      }
-    }).from(cards, {
+  cards.forEach((el, i) => {
+    gsap.from(el, {
       y: 30,
-      opacity: 0,
-      duration: 0.6,
+      autoAlpha: 0,
+      duration: prefersReduced ? 0 : 0.6,
       ease: 'power2.out',
-      // key bit: sequential entrance
-      stagger: {
-        each: 0.12,      // gap between cards
-        from: 'start',   // start from first item
-        grid: 'auto'     // respects CSS grid/flex wrapping order
+      delay: i * .5,              // 0.5s between each card (left→right order)
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 80%',          // only when THIS card is actually in view
+        toggleActions: 'play none none reverse',
+        // once: true,             // uncomment if it should only play once
       }
     })
+  })
 
-    ScrollTrigger.refresh()
-  }, section.value)
+  ScrollTrigger.refresh()
+}, section.value)
 
   onBeforeUnmount(() => ctx?.revert()) // 6) clean up on unmount
 })

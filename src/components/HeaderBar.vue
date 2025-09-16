@@ -95,7 +95,7 @@ onBeforeUnmount(() => {
   }
 }
 .logo-container{
-
+  margin-left: 20px;
   padding: 20px 0px;
   display: flex;
   align-items: center;

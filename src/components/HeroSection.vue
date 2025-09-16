@@ -2,8 +2,10 @@
 import { onMounted, onBeforeUnmount, ref, nextTick } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { useUiStore } from '../stores/ui' 
 gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollToPlugin)
 
 const ui = useUiStore()
 
@@ -111,8 +113,16 @@ const scrollToNextSection = () => {
   const next = current.nextElementSibling
   if (!next) return
 
-  // Smooth native scroll (no extra plugins needed)
-  next.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  // next.scrollIntoView({ behavior: 'smooth', block: 'start' })
+
+  const top = next.getBoundingClientRect().top + window.scrollY
+
+  gsap.to(window, {
+    scrollTo: top,
+    duration: 0,       // 👈 control the speed (seconds)
+    ease: 'power2.inOut' // easing curve
+  })
+
 }
 
 onMounted(async () => {
