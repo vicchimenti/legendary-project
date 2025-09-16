@@ -192,6 +192,19 @@ onBeforeUnmount(() => {
         <h1>BE LEGENDARY</h1>
       </div>
     </div>
+
+    <div class="button-strip">
+      <button>
+        <svg width="100px" height="100px" viewBox="0 0 65 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>HERO-SCROLL-DOWN</title>
+        <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+            <g id="00-HOME" transform="translate(-688.000000, -920.000000)" stroke="#FFFFFF" stroke-width="5">
+                <polyline id="HERO-SCROLL-DOWN" points="691 923.022278 720.488665 952 750 923"></polyline>
+            </g>
+        </g>
+        </svg>
+      </button>
+    </div>
   </section>
 </template>
 
@@ -272,6 +285,19 @@ onBeforeUnmount(() => {
       margin: 0 auto;
       white-space: nowrap;
     }
+  }
+}
+
+.button-strip{
+  width:100%;
+  position:absolute;
+  bottom:200px;
+  left:0px;
+
+  button{
+    border: 0px;
+    background: 0px;
+    opacity: .5;
   }
 }
 </style>
