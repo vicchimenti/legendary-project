@@ -56,6 +56,41 @@ onMounted(async () => {
           toggleActions: 'play none none reverse'
         }
       })
+
+
+      // Stats: sequential reveal (left -> right), fade + slide up
+      const items = gsap.utils.toArray('.stats-grid .stat', section.value)
+
+      if (items.length) {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        if (prefersReduced) {
+          gsap.set(items, { y: 0, autoAlpha: 1 })
+        } else {
+          gsap.set(items, { y: 100, autoAlpha: 0 }) // start slightly below and hidden
+
+          gsap.to(items, {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.5,
+            ease: 'power2.out',
+            stagger: { each: 0.25, from: 'start' }, 
+            scrollTrigger: {
+              trigger: card.value,     // start when the card is nearing view
+              start: 'top 85%',
+              toggleActions: 'play none none reverse', // reverse on scroll up; use 'play none none none' for once
+              // markers: true,
+            }
+          })
+        }
+      }
+
+
+
+
+
+
+
+
     }
   }, section.value)
 
@@ -301,6 +336,8 @@ onBeforeUnmount(() => {
       font-size: 17px;
 
       line-height: 150%;
+
+      display:none;
     }
   }
 }

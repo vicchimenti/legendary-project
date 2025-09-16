@@ -11,6 +11,9 @@ import LegendaryResultsSection from './components/LegendaryResultsSection.vue'
 import QuotesStackSection from './components/QuotesStackSection.vue'
 
 import SiteFooter from './components/SiteFooter.vue'
+
+
+import StickyNav from './components/StickyNav.vue'
 </script>
 
 <template>
@@ -26,4 +29,11 @@ import SiteFooter from './components/SiteFooter.vue'
     <FeaturesSection />
   </main>
   <SiteFooter />
+  <StickyNav />
 </template>
+
+<style lang="scss">
+main{
+  overflow: hidden;
+}
+</style>

@@ -57,7 +57,26 @@ onMounted(async () => {
     //     }
     //   })
     // })
+
+    
   }, scopeEl)
+
+
+  gsap.fromTo(
+    '.rally-logo svg',
+    { width: 125 },     // starting size
+    {
+      width: 350,       // ending size
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section.value,   // use the whole rally section
+        start: 'center center',   // halfway down the section hits halfway down viewport
+        end: 'bottom center',
+        scrub: true,
+        // markers: true,          // enable for debugging
+      }
+    }
+  )
 
   // // Images loading can change layout; refresh triggers after load.
   // onWinLoad = () => ScrollTrigger.refresh()
@@ -88,14 +107,16 @@ onBeforeUnmount(() => {
       <div class="rally-center">
         <h2 id="rally-heading" class="sr-only">Rally Cry</h2>
         <div ref="textEl" class="rally-cry-block" role="text" aria-label="Rally message">
-          <p class="rally-line">In the Heart of the Pacific Northwest, in a city of influence,</p>
-          <p class="rally-line">it takes Big Dreams inspiration and dedication to make your story legendary.</p>
-          <p class="rally-line">Whether your path is clearly marked or you're sketching it out as you go,</p>
-          <p class="rally-line">Seattle University is the place to be in the spotlight.</p>
-          <p class="rally-line">be on the Forefront.</p>
-          <p class="rally-line">be unstoppable</p>
-          <p class="rally-line">be for others</p>
-          <p class="rally-line">and be a leader with purpose who shapes the world with passion.</p>
+          <p class="rally-line">In the heart of the Pacific Northwest, In a city of influence, </p>
+          <p class="rally-line">It takes big dreams, inspiration, and dedication to make your story legendary. </p>
+          <p class="rally-line">Whether your path is clearly marked or you're sketching it out as you go, </p>
+          <p class="rally-line">Seattle University is the place to be in the spotlight. </p>
+          <p class="rally-line">Be a leader with purpose who shapes the world with passion. </p>
+          <p class="rally-line">Be on the forefront.</p>
+          <p class="rally-line">Be unstoppable.</p>
+          <p class="rally-line">Be for others.</p>
+          <p class="rally-line">Seattle University.</p>
+          <p class="rally-line">Be legendary.</p>
         </div>
       </div>
 
@@ -104,7 +125,6 @@ onBeforeUnmount(() => {
       </div>
     </div>
     <div class="rally-logo" aria-hidden="true">
-    
       <DesktopLogo alt="Seattle University Logo" style="fill:white; width:170px;"/>
     </div>
   </section>
@@ -114,7 +134,7 @@ onBeforeUnmount(() => {
 
 
 .rally {
-  padding: 8rem 0 6rem;
+  padding: 4rem 1em 6rem;
   position: relative;
   overflow: clip;
 
@@ -199,10 +219,8 @@ onBeforeUnmount(() => {
     display:flex;
     justify-content: center;
     align-items: center;
-    padding:8em 0 0em;
-    img{
-      width: 175px;
-    }
+    padding:4em 1em 0em;
+
   }
 
   .sr-only {
