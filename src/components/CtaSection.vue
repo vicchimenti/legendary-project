@@ -19,7 +19,7 @@ const ctas = [
     img:  UndergradImg,
     alt:  'person standing in front of the seattle skyline',
     buttons: [
-      { label: 'Get Started', href: '#', primary: true },
+      { label: 'Explore Admissions', href: 'https://www.seattleu.edu/admissions-aid/undergraduate-admissions/', primary: true },
       // { label: 'Talk to an advisor', href: '#' }
     ]
   },
@@ -30,7 +30,7 @@ const ctas = [
     img:  GradImg,
     alt:  'person standing in front of the seattle skyline',
     buttons: [
-      { label: 'Get Started', href: '#', primary: true },
+      { label: 'Discover Programs', href: 'https://www.seattleu.edu/academics/all-programs/?keywords=&programLevel=graduate&programLevel=doctorate&programType=&areaOfStudy=&school=', primary: true },
 
     ]
   },

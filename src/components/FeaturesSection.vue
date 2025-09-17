@@ -82,7 +82,7 @@ ctx = gsap.context(() => {
           <h3>Grow your legend</h3>
           <p>Advance your career and your future in one of 50 graduate degree programs.</p>
           <div class="btn-group">
-            <a href="https://www.seattleu.edu/academics/all-programs/?keywords=&programLevel=graduate&areaOfStudy=&school=" class="btn btn-primary">Explore grad school</a>
+            <a href="https://www.seattleu.edu/academics/all-programs/?keywords=&programLevel=graduate&areaOfStudy=&school=" class="btn btn-primary">Explore Grad School</a>
           </div>
         </div>
 
@@ -91,7 +91,7 @@ ctx = gsap.context(() => {
           <h3>Celebrate your legend</h3>
           <p>Stay connected with a global community that leads, serves and inspires.</p>
           <div class="btn-group">
-            <a href="https://www.seattleu.edu/alumni/" class="btn btn-primary">Connect now</a>
+            <a href="https://www.seattleu.edu/alumni/" class="btn btn-primary">Connect Now</a>
           </div>
         </div>
       </div>
