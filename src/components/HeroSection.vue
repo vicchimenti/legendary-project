@@ -4,10 +4,13 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { useUiStore } from '../stores/ui' 
+
+
 gsap.registerPlugin(ScrollTrigger)
 gsap.registerPlugin(ScrollToPlugin)
 
 const ui = useUiStore()
+
 
 const titleWrap = ref(null)   // outer: auto-fit scale
 const titleInner = ref(null)  // inner: scroll scale
@@ -18,8 +21,11 @@ const section = ref(null)
 const downBtn = ref(null)
 const showArrow = ref(false)
 
+
 let ctx
 let ro // ResizeObserver
+let trigger
+
 
 import HeroVideoPlaceholder from '../assets/images/HeroVideoPlaceholder.jpg'
 import HeroVideo from '../assets/videos/BeLegendaryIntroVideo.mp4'
@@ -131,6 +137,22 @@ onMounted(async () => {
     try { await document.fonts.ready } catch {}
   }
 
+  //  trigger = ScrollTrigger.create({
+  //   trigger: section.value,
+  //   start: 'top bottom',
+  //   end: 'bottom top',
+  //   scrub: true,
+  //   // markers: true, // uncomment for debugging
+  //   onUpdate: (self) => {
+  //     const key = self.progress < 0.5 ? 'hero-1' : 'hero-2'
+  //     ui.setBgSlide(key) // store ignores repeats
+  //   },
+  //   onEnter: () => ui.setBgSlide('hero-1'),
+  //   onEnterBack: () => ui.setBgSlide('hero-2'),
+  //   onLeave: () => ui.setBgSlide(null),
+  //   onLeaveBack: () => ui.setBgSlide(null),
+  // })
+
   // hide hero title initially
   gsap.set(titleWrap.value, { autoAlpha: 0 })
 
@@ -200,6 +222,8 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   ctx?.revert?.()
   ro?.disconnect()
+  trigger?.kill()
+  bg.unregisterGroup('hero')
   window.removeEventListener('resize', fitToWidth)
   if (videoEl.value) {
     videoEl.value.removeEventListener('ended', endVideo)
@@ -274,12 +298,12 @@ onBeforeUnmount(() => {
   justify-content: center;
 
   /* Solid color will show when video is removed */
-  background: #000; /* while video is playing, this is a safe fallback under it */
+  // background: #000; /* while video is playing, this is a safe fallback under it */
 }
 
 /* When the video is done, remove any moving background and show brand color */
 .video-done {
-  background: #AC0002;
+  // background: var(--Digital-SU-Red);
 }
 
 /* Full-bleed background video */

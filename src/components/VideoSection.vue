@@ -176,7 +176,7 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 .video-section {
   padding: 0rem 0 0rem;
-  background:var(--page-bg);
+  // background:var(--page-bg);
   background-repeat: repeat;
   background-position: right;
   background-size: 100% auto;

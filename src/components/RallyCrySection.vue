@@ -2,24 +2,56 @@
 import { onMounted, onBeforeUnmount, ref, nextTick } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useUiStore } from '../stores/ui' 
 
 gsap.registerPlugin(ScrollTrigger)
 
+const ui = useUiStore()
+
 import DesktopLogo from '../assets/images/Desktop_Logo.svg'
+
 
 const section = ref(null)
 let ctx
 let onWinLoad
 
+let tMid = null
+let tTop = null
+
 onMounted(async () => {
   await nextTick()
-
 
   const scopeEl = section.value
 
 
+ // 1) Show rally-cry-1 when section TOP reaches middle of viewport
+  tMid = ScrollTrigger.create({
+    trigger: section.value,
+    start: 'top 50%',
+    end: 'bottom top',
+    // markers: true,
+    onEnter:     () => ui.setBgSlide('rally-cry-1'),
+    onEnterBack: () => ui.setBgSlide('rally-cry-1'),
+    onLeaveBack: () => ui.setBgSlide(null),      // scrolling up above mid -> hide
+  })
+
+  // 2) Swap to rally-cry-2 when section TOP reaches the top of the viewport
+  tTop = ScrollTrigger.create({
+    trigger: section.value,
+    start: 'top top', // same as 'top 0%'
+    end: 'bottom top',
+    // markers: true,
+    onEnter:     () => ui.setBgSlide('rally-cry-2'),
+    onEnterBack: () => ui.setBgSlide('rally-cry-2'),
+    onLeaveBack: () => ui.setBgSlide('rally-cry-1'), // going back down -> return to first
+  })
+
+
+
+
+
+  // rally lines
   ctx = gsap.context(() => {
-    // 1) Line-by-line fade to white as each crosses the viewport middle
     const lines = gsap.utils.toArray('.rally-line', scopeEl)
     lines.forEach((line) => {
       gsap.fromTo(
@@ -38,30 +70,11 @@ onMounted(async () => {
         }
       )
     })
-
-    // 2) Each image animates in individually at the same middle point
-    // const images = section.value.querySelectorAll('.rally-img')
-    // images.forEach((img, i) => {
-    //   gsap.from(img, {
-    //     y: i % 2 ? 30 : -30,
-    //     opacity: 0,
-    //     rotate: i % 2 ? 2 : -2,
-    //     duration: 0.6,
-    //     ease: 'power2.out',
-    //     scrollTrigger: {
-    //       trigger: img,
-    //       start: 'top center',
-    //       end: 'bottom center',
-    //       scrub: true,
-    //       // markers: true,          // <-- uncomment to debug
-    //     }
-    //   })
-    // })
-
-    
+  
   }, scopeEl)
 
 
+  // logo resize
   gsap.fromTo(
     '.rally-logo svg',
     { width: 125 },     // starting size
@@ -69,8 +82,8 @@ onMounted(async () => {
       width: 350,       // ending size
       ease: 'none',
       scrollTrigger: {
-        trigger: section.value,   // use the whole rally section
-        start: 'center center',   // halfway down the section hits halfway down viewport
+        trigger: section.value,   
+        start: 'center center',  
         end: 'bottom center',
         scrub: true,
         // markers: true,          // enable for debugging
@@ -78,32 +91,25 @@ onMounted(async () => {
     }
   )
 
-  // // Images loading can change layout; refresh triggers after load.
-  // onWinLoad = () => ScrollTrigger.refresh()
-  // window.addEventListener('load', onWinLoad)
-
-  // If you lazy-load images, also refresh after each loads:
-  section.value.querySelectorAll('img[loading="lazy"]').forEach(img => {
-    img.addEventListener('load', () => ScrollTrigger.refresh(), { once: true })
-  })
 })
 
 onBeforeUnmount(() => {
+  tMid?.kill()
+  tTop?.kill()
+  tMid = tTop = null
   window.removeEventListener('load', onWinLoad)
   ctx && ctx.revert()
 })
 </script>
 
-
-
 <template>
   <section class="rally" ref="section" aria-labelledby="rally-heading">
     <div class="rally-grid">
-      <!-- Left images (decorative) -->
+
       <div class="rally-images left" aria-hidden="true">
       </div>
 
-      <!-- Center pinned text -->
+
       <div class="rally-center">
         <h2 id="rally-heading" class="sr-only">Rally Cry</h2>
         <div ref="textEl" class="rally-cry-block" role="text" aria-label="Rally message">
@@ -120,7 +126,7 @@ onBeforeUnmount(() => {
         </div>
       </div>
 
-      <!-- Right images (decorative) -->
+
       <div class="rally-images right" aria-hidden="true">
       </div>
     </div>
@@ -130,8 +136,9 @@ onBeforeUnmount(() => {
   </section>
 </template>
 
-<style lang="scss" scoped>
 
+
+<style lang="scss" scoped>
 
 .rally {
   padding: 4rem 1em 6rem;

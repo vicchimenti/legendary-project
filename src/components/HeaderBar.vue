@@ -45,8 +45,10 @@ onBeforeUnmount(() => {
 >
     <div class="container d-flex justify-content-between align-items-center">
       <div class="logo-container">
-        <DesktopLogo class="logo d-none d-md-block" alt="Seattle University Logo" />
-        <MobileLogo class="logo d-block d-md-none" alt="Seattle University Logo" />
+        <a href="https://www.seattleu.edu" aria-label="Seattle University Home" target="_blank" rel="noopener">
+          <DesktopLogo class="logo d-none d-md-block" alt="Seattle University Logo" />
+          <MobileLogo class="logo d-block d-md-none" alt="Seattle University Logo" />
+        </a>
       </div>
 
       <div class="menu-container">

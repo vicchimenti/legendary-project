@@ -1,4 +1,7 @@
 <script setup>
+
+import BgContainer from './components/BgContainer.vue'
+
 import HeaderBar from './components/HeaderBar.vue'
 import RallyCrySection from './components/RallyCrySection.vue'
 import VideoSection from './components/VideoSection.vue'
@@ -17,6 +20,9 @@ import StickyNav from './components/StickyNav.vue'
 </script>
 
 <template>
+
+  <BgContainer />
+
   <HeaderBar />
   <main>
     <HeroSection />
