@@ -167,8 +167,8 @@ onBeforeUnmount(() => {
 
       </div>
 
-      <div class="button-bar mt-5  text-center">
-        <a href="#" class="btn btn-primary" role="button">Read More Legendary Stories</a>
+      <div class="button-bar mt-5 text-center">
+        <a href="https://www.seattleu.edu/legendary-stories/" class="btn btn-primary" role="button">Read More Legendary Stories</a>
       </div>
 
     </div>
