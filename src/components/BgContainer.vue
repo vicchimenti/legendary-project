@@ -36,7 +36,7 @@ const switchSlide = (key) => {
     tl.set(hideEl, { opacity: 1, y: 0 }, 0)
       .to(hideEl, {
         opacity: 0,
-        y: 40,
+        y: -100,
         duration: 0.6,
         overwrite: 'auto',
         onComplete: () => gsap.set(hideEl, { visibility: 'hidden', y: 0 }) // hide AFTER fade
@@ -45,7 +45,7 @@ const switchSlide = (key) => {
 
   // IN — fade/slide up with overlap
   if (showEl) {
-    tl.set(showEl, { opacity: 0, y: -40 }, 0)
+    tl.set(showEl, { opacity: 0, y: 100 }, 0)
       .to(showEl, {
         opacity: 1,
         y: 0,
@@ -92,10 +92,10 @@ onMounted(() => {
   will-change: opacity, transform; opacity: 0; transform: translateY(-40px);
 
   /* gradient (per-slide can override) */
-  &::before {
-    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(180deg, rgba(217, 217, 217, 0.00) 0%, #A2A2A2 47.36%, rgba(115, 115, 115, 0.00) 88.24%);  
-  }
+  // &::before {
+  //   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  //   background: linear-gradient(180deg, rgba(217, 217, 217, 0.00) 0%, #A2A2A2 47.36%, rgba(115, 115, 115, 0.00) 88.24%);  
+  // }
 
   .bg-slide-image {
     position: absolute; inset: 0; z-index: 0;
@@ -116,16 +116,16 @@ onMounted(() => {
 
   /* RALLY image slides + their own gradients */
   &.rally-cry-1 {
-    &::before { 
-      background: linear-gradient(180deg, rgba(217, 217, 217, 0.00) 0%, #A2A2A2 47.36%, rgba(115, 115, 115, 0.00) 88.24%);
-    }
-    .bg-slide-image { background-image: url("@/assets/images/RallyCryImage1.jpg"); }
+    // &::before { 
+    //   background: linear-gradient(180deg, rgba(217, 217, 217, 0.00) 0%, #A2A2A2 47.36%, rgba(115, 115, 115, 0.00) 88.24%);
+    // }
+    .bg-slide-image { background-image: url("@/assets/images/RALLY_CRY_01-2300.jpg"); }
   }
   &.rally-cry-2 {
-    &::before { 
-      background: linear-gradient(180deg, rgba(217, 217, 217, 0.00) 0%, #A2A2A2 47.36%, rgba(115, 115, 115, 0.00) 88.24%);
-    }
-    .bg-slide-image { background-image: url("@/assets/images/RallyCryImage2.jpg"); }
+    // &::before { 
+    //   background: linear-gradient(180deg, rgba(217, 217, 217, 0.00) 0%, #A2A2A2 47.36%, rgba(115, 115, 115, 0.00) 88.24%);
+    // }
+    .bg-slide-image { background-image: url("@/assets/images/RALLY_CRY_02-2300.jpg"); }
   }
 }
 </style>

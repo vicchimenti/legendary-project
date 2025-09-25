@@ -30,6 +30,11 @@ const embedUrl = computed(() => {
   return `https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0&portrait=0&playsinline=1&dnt=1&origin=${origin}`;
 });
 
+const modalEmbedUrl = computed(() => {
+  const origin = encodeURIComponent(window.location.origin);
+  return `https://player.vimeo.com/video/${vimeoId}?autoplay=1&byline=0&title=0&portrait=0&dnt=1&origin=${origin}`;
+});
+
 async function togglePlayback() {
 
 
@@ -142,10 +147,10 @@ onBeforeUnmount(() => {
             <div class="video-overlay">
               <div class="video-tagline d-none d-md-block">your story is just getting started</div>
 
-              <!-- <button class="video-button" aria-label="Watch full video"  @click="openModal">            
+              <button class="video-button" aria-label="Watch full video"  @click="openModal">            
                 <VideoIcon class="icon" aria-hidden="true" />
                 <span class="text  d-none d-md-block">Watch full video</span>
-              </button> -->
+              </button>
             </div>
           </div>
         </div>
@@ -154,20 +159,20 @@ onBeforeUnmount(() => {
 
 
     <!-- Modal -->
-    <!-- <div v-if="isOpen" class="modal-overlay" @click="closeModal">
+    <div v-if="isOpen" class="modal-overlay" @click="closeModal">
       <div class="modal-content" @click.stop>
         <button @click="closeModal" aria-label="Close Video"><Close /></button>
         <iframe
-          :src="videoUrl"
-          width="640"
-          height="360"
+          :src="modalEmbedUrl"
+          width="800"
+          height="450"
           frameborder="0"
           allow="autoplay; fullscreen; picture-in-picture"
           allowfullscreen
         ></iframe>
 
       </div>
-    </div> -->
+    </div>
 
 
   </section>
