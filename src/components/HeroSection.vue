@@ -27,6 +27,22 @@ let ro // ResizeObserver
 let trigger
 
 
+let scrollTop
+
+function lockScroll() {
+  scrollTop = window.scrollY
+  document.body.style.position = 'fixed'
+  document.body.style.top = `-${scrollTop}px`
+  document.body.style.width = '100%'
+}
+
+function unlockScroll() {
+  document.body.style.position = ''
+  document.body.style.top = ''
+  document.body.style.width = ''
+}
+
+
 import HeroVideoPlaceholder from '../assets/images/HeroVideoPlaceholder.jpg'
 import HeroVideo from '../assets/videos/BeLegendaryIntroVideo.mp4'
 
@@ -61,7 +77,7 @@ function endVideo() {
   videoDone.value = true
   fadeInHero()
   showHeaderEarly()
-
+  unlockScroll()
   // extra cleanup to free memory on some browsers
   const el = videoEl.value
   if (el) {
@@ -97,6 +113,7 @@ async function tryAutoplayOnce() {
     if (el.currentTime >= el.duration - 1.6) {
       showHeaderEarly()
       fadeInHero()
+      unlockScroll()
       showArrow.value = true
       el.removeEventListener("timeupdate", handler)
     }
@@ -196,6 +213,7 @@ onMounted(async () => {
     videoEl.value.addEventListener('ended', endVideo, { passive: true })
     videoEl.value.addEventListener('error', endVideo, { passive: true })
     tryAutoplayOnce()
+    lockScroll()
   } else {
     endVideo()
   }

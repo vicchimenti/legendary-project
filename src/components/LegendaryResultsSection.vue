@@ -109,21 +109,22 @@ onBeforeUnmount(() => {
   <section class="legendary" ref="section" aria-labelledby="legendary-heading">
     <!-- Parallax image area -->
     <div class="legendary-hero">
-      <img
+      <div class="legendary-hero-image" />
+      <!-- <img
         ref="imgEl"
         class="legendary-img d-md-block d-none"
         :src="ResultsImage"
         alt=""
         aria-hidden="true"
-      />
+      /> -->
 
-      <img
+      <!-- <img
         ref="imgEl"
         class="legendary-img d-block d-md-none"
         :src="ResultsImageMobile"
         alt=""
         aria-hidden="true"
-      />
+      /> -->
 
       <div class="legendary-overlay"></div>
 
@@ -174,7 +175,20 @@ onBeforeUnmount(() => {
   height: clamp(420px, 70vh, 600px);
   overflow: hidden;
 }
+.legendary-hero-image{
+  position: absolute;
+  inset: 0;
+  background-image: url('@/assets/images/RESULTS_IMAGE.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
 
+  @include media-breakpoint-down(md) {
+    background-image: url('@/assets/images/RESULTS_IMAGE_MOBILE.jpg');
+    background-position: top;
+  }
+}
 .legendary-img {
   position: absolute;
   inset: 0;

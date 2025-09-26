@@ -18,9 +18,13 @@ const section = ref(null)
 
 import UMITANI_Image from '../assets/images/UMITANI-2x.jpg'
 import SKUBAL_Image from '../assets/images/SKUBAL-2x.jpg'
-import OBRIEN_Image from '../assets/images/OBRIEN-2x.jpg'
 import CONRAD_Image from '../assets/images/CONRAD-2x.jpg'
 import BAYLOR_Image from '../assets/images/BAYLOR-2x.jpg'
+
+import Image1 from '../assets/images/AnaWhite_AlumniAwards2023_yk_036.jpg'
+import Image2 from '../assets/images/Lena_Raine.jpg'
+import Image3 from '../assets/images/BrendanFraserHeadshot.jpeg'
+import Image4 from '../assets/images/Tod_Leiweke_SeattleU_yk_011.jpg'
 
 let resizeObserver
 
@@ -35,13 +39,8 @@ const items = ref([
     desc: 'Basketball star led Seattle University to 1958 NCAA title game en route to a legendary career.',
     href: 'https://www.seattleu.edu/newsroom/2025/elgin-baylors-lasting-legacy.php'
   },
-  {
-    img: OBRIEN_Image,
-    alt: 'O’Brien Name Continues to Resonate',
-    title: 'O’Brien Name Continues to Resonate',
-    desc: 'Twins Johnny and Eddie made their marks on the basketball court and baseball diamond',
-    href: 'https://www.seattleu.edu/newsroom/2025/obrien-name-continues-to-resonate.php'
-  },
+
+
   {
     img: CONRAD_Image,
     alt: 'Conrad Named DNC Leader',
@@ -63,8 +62,37 @@ const items = ref([
     desc: 'A double major in economics and public affairs, Naho Umitani recognized for public service leadership.',
     href: 'https://www.seattleu.edu/newsroom/2025/a-future-in-public-service.php'
   },
-])
 
+
+  {
+    img: Image1,
+    alt: 'Math Education Adds Up for Ana White',
+    title: 'Math Education Adds Up for Ana White',
+    desc: 'Former Alumna of the Year took skills learned at SU to F5 leadership role',
+    href: 'https://www.seattleu.edu/newsroom/2023/alumni-spotlight-ana-white-95.php'
+  },
+  {
+    img: Image2,
+    alt: 'Raine Builds Game Music Fame',
+    title: 'Raine Builds Game Music Fame',
+    desc: 'A double major in economics and public affairs, Naho Umitani recognized for public service leadership.Cornish alum Lena Raine renowned for composing music for hits like Minecraft',
+    href: 'https://www.seattleu.edu/newsroom/2025/the-music-of-minecraft.php'
+  },
+  {
+    img: Image3,
+    alt: 'Cornish Started Fraser’s Career',
+    title: 'Cornish Started Fraser’s Career',
+    desc: 'Oscar-winner Brendan Fraser’s road to stardom started in Seattle',
+    href: 'https://www.seattleu.edu/newsroom/2025/oscar-winning-actors-cornish-roots.php'
+  },
+  {
+    img: Image4,
+    alt: 'Leiweke Pushed Seattle’s Sports Growth',
+    title: 'Leiweke Pushed Seattle’s Sports Growth',
+    desc: 'Tod Leiweke was driving force in Kraken, Sounders & Climate Pledge Arena',
+    href: 'https://www.seattleu.edu/newsroom/2025/mr-seattle-sports.php'
+  },
+])
 
 onMounted(async () => {
   await nextTick()

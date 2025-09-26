@@ -43,7 +43,8 @@ ctx = gsap.context(() => {
 <template>
   <section id="features" class="section features" ref="section">
     <div class="bg-imagery">
-      <img
+      <div class="bg-imagery-image" />
+      <!-- <img
         ref="imgEl"
         class="bg-img d-md-block d-none"
         :src="PhotoGrid"
@@ -57,7 +58,7 @@ ctx = gsap.context(() => {
         :src="PhotoGridMobile"
         alt=""
         aria-hidden="true"
-      />
+      /> -->
     </div>
     <div class="bg-overlay" aria-hidden="true"></div>
 
@@ -116,7 +117,24 @@ $accent: #e63946; /* Example accent color, replace with your brand color */
   inset: 0;
   width: 100%;
   overflow: hidden;
-  will-change: transform;
+  // will-change: transform;
+  .bg-imagery-image{
+    position: absolute;
+    inset: 0;
+    background-image: url(@/assets/images/Photo_GRID.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    width:100%;
+    height:100%;
+    @include media-breakpoint-down(md) {
+      background-image: url(@/assets/images/Photo_GRID_MOBILE.jpg);
+      background-size: cover;
+      background-position: top center;
+      background-repeat: no-repeat;
+    }
+  }
 
   &:before{
     content:'';
@@ -132,16 +150,16 @@ $accent: #e63946; /* Example accent color, replace with your brand color */
     }
   }
 
-  img{
-    width: 100%;
-    height: 120%;   
-    object-fit: cover;
-    object-position: top center;
-    @include media-breakpoint-down(md) {
-      object-fit: contain;
-      object-position: top center;
-    }
-  }
+  // img{
+  //   width: 100%;
+  //   height: 120%;   
+  //   object-fit: cover;
+  //   object-position: top center;
+  //   @include media-breakpoint-down(md) {
+  //     object-fit: contain;
+  //     object-position: top center;
+  //   }
+  // }
 }
 
 
